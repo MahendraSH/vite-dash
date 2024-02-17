@@ -1,4 +1,33 @@
-## MUI Custom Theme
+# MUI Custom Theme
+
+## File Structure
+
+```
+theme/
+├── color/
+│   └── palettes-generator.js
+├── overrides/
+│   ├── Badge.jsx
+│   ├── Button.jsx
+│   ├── CardContent.jsx
+│   ├── Checkbox.jsx
+│   ├── Chip.jsx
+│   ├── componentsOverride.jsx
+│   ├── IconButton.jsx
+│   ├── InputLabel.jsx
+│   ├── LinearProgress.jsx
+│   ├── Link.jsx
+│   ├── ListItemIcon.jsx
+│   ├── OutlinedInput.jsx
+│   ├── Tab.jsx
+│   ├── TableCell.jsx
+│   ├── Tabs.jsx
+│   └── Typography.jsx
+└── theme-components/
+    ├── palettes.js
+    ├── shadows.js
+    └── typography.js
+```
 
 ### Table of Contents
 

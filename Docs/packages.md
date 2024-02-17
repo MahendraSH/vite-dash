@@ -1,5 +1,3 @@
-# Package and there use cases
-
 ## Table of Contents
 
 1. [Redux Toolkit and react-redux](#redux-toolkit-and-react-redux)
@@ -7,6 +5,10 @@
 3. [Ant Design Icons and Colors](#ant-design-icons-and-colors)
 4. [Form Handling with Formik and Yup](#form-handling-with-formik-and-yup)
 5. [FontSource Roboto](#fontsourceroboto)
+6. [Framer Motion](#framer-motion)
+7. [React Router DOM](#react-router-dom)
+8. [PropTypes](#prop-types)
+9. [Simplebar and Simplebar-React](#simplebar-and-simplebar-react)
 
 ---
 
@@ -41,6 +43,12 @@
 - **Description**: Emotion is a performant and flexible CSS-in-JS library. It allows you to style your components with CSS syntax inside JavaScript.
 - **Documentation**: [Emotion Documentation](https://emotion.sh/docs/introduction)
 
+### @mui/styles
+
+- **Version**: 5.15.10
+- **Description**: Material-UI Styles provides utilities for defining and applying styles to Material-UI components. It allows you to customize the appearance of components using CSS-in-JS.
+- **Documentation**: [Material-UI Styles Documentation](https://mui.com/styles/basics/)
+
 ---
 
 ## 3. Ant Design Icons and Colors <a name="ant-design-icons-and-colors"></a>
@@ -73,7 +81,9 @@
 - **Description**: Yup is a JavaScript schema validation library that works well with Formik. It allows you to define schemas for your data and validate them against a set of rules.
 - **Documentation**: [Yup Documentation](https://github.com/jquense/yup)
 
-## 5. Roboto Font with @fontsource/roboto <a name="roboto-font"></a>
+---
+
+## 5. FontSource Roboto <a name="fontsourceroboto"></a>
 
 ### @fontsource/roboto
 
@@ -81,3 +91,47 @@
 - **Description**: @fontsource/roboto is a package that provides the Roboto font family for use in web projects. It allows you to easily include the Roboto font in your application without relying on external font hosting services.
 - **Use Case**: Roboto is a popular typeface used in many Material Design applications. By including the @fontsource/roboto package, you can ensure consistent typography and a modern look and feel for your application.
 - **Documentation**: [Fontsource Documentation](https://fontsource.org/)
+
+---
+
+## 6. Framer Motion <a name="framer-motion"></a>
+
+### framer-motion
+
+- **Version**: 11.0.5
+- **Description**: Framer Motion is a popular animation library for React applications. It provides a simple and declarative API for creating fluid animations and gestures.
+- **Documentation**: [Framer Motion Documentation](https://www.framer.com/api/motion/)
+
+---
+
+## 7. React Router DOM <a name="react-router-dom"></a>
+
+### react-router-dom
+
+- **Version**: 6.22.1
+- **Description**: React Router DOM is the standard routing library for React applications. It allows you to define navigation and routing logic for single-page applications.
+- **Documentation**: [React Router DOM Documentation](https://reactrouter.com/web/guides/quick-start)
+
+---
+
+## 8. PropTypes <a name="prop-types"></a>
+
+### prop-types
+
+- **Version**: 15.8.1
+- **Description**: PropTypes is a library for typechecking React props to help you catch bugs in your components during development.
+- **Documentation**: [PropTypes Documentation](https://reactjs.org/docs/typechecking-with-proptypes.html)
+
+## 8. Simplebar and Simplebar-React
+
+### simplebar
+
+- **Version**: 5.3.8
+- **Description**: Simplebar is a lightweight JavaScript library that provides custom scrollbar solutions for web applications. It allows you to create custom scrollbars with ease.
+- **Documentation**: [Simplebar Documentation](https://github.com/Grsmto/simplebar)
+
+### simplebar-react
+
+- **Version**: 2.4.1
+- **Description**: Simplebar-React is a React wrapper for the Simplebar library. It enables you to easily integrate custom scrollbars into your React applications.
+- **Documentation**: [Simplebar-React Documentation](https://github.com/Grsmto/simplebar/tree/master/packages/simplebar-react)

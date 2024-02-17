@@ -4,6 +4,7 @@
 
 1. [Project setup using vite](#project-setup-using-vite)
 2. [Package and there use cases](./Docs/packages.md/#package-and-there-use-cases)
+3. [ MUI Custom Theme](./Docs/theme.md/#mui-custom-theme)
 
 ## Project Setup using Vite
 
