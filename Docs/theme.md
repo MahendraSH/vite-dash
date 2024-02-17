@@ -11,7 +11,7 @@
 7. [Example Override (Badge)](#example-override-badge)
 8. [Example Override (Button)](#example-override-button)
 
-### Custom Theme Provider
+### 1. Custom Theme Provider <a name="custom-theme-provider"></a>
 
 The custom theme provider provides a way to create a customized Material-UI theme for your React application. It includes configurations for colors, typography, shadows, and component overrides.
 
@@ -75,7 +75,7 @@ CustomThemeProvider.propTypes = {
 };
 ```
 
-### Colors Generator
+### 2. Colors Generator <a name="colors-generator"></a>
 
 The colors generator creates a color palette based on the preset color palettes from Ant Design. It provides consistent color schemes for primary, secondary, error, warning, info, and success themes.
 
@@ -87,7 +87,7 @@ const ColorGenerator = (colors) => {
 export default ColorGenerator;
 ```
 
-### Palettes
+### 3. Palettes <a name="palettes"></a>
 
 The palettes module utilizes the color generator to create the overall color scheme for the theme. It defines primary, secondary, error, warning, info, and success colors, along with text, action, and background colors.
 
@@ -99,7 +99,7 @@ const Palette = (mode) => {
 export default Palette;
 ```
 
-### Shadows
+### 4. Shadows <a name="shadows"></a>
 
 The shadows module generates custom shadow styles for various components in the theme, providing depth and dimension to the UI elements.
 
@@ -111,7 +111,7 @@ const CustomShadows = (theme) => {
 export default CustomShadows;
 ```
 
-### Typography
+### 5. Typography <a name="typography"></a>
 
 The typography module defines the font styles and sizes for various text elements in the theme, ensuring consistent typography across the application.
 
@@ -123,7 +123,7 @@ const Typography = (fontFamily) => {
 export default Typography;
 ```
 
-### Overrides
+### 6. Overrides <a name="overrides"></a>
 
 The overrides module allows for customizing the styles of Material-UI components, such as buttons, badges, cards, and more. It enables fine-grained control over the appearance and behavior of UI elements.
 
@@ -133,7 +133,7 @@ export default function ComponentsOverrides(theme) {
 }
 ```
 
-### Example Override (Badge)
+### 7. Example Override (Badge) <a name="example-override-badge"></a>
 
 Here's an example of a component override for the Badge component:
 
@@ -153,7 +153,7 @@ export default function Badge(theme) {
 }
 ```
 
-### Example Override (Button)
+### 8. Example Override (Button) <a name="example-override-button"></a>
 
 And here's an example of a component override for the Button component:
 
