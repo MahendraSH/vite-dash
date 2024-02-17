@@ -8,7 +8,6 @@
 6. [Framer Motion](#framer-motion)
 7. [React Router DOM](#react-router-dom)
 8. [PropTypes](#prop-types)
-9. [Simplebar and Simplebar-React](#simplebar-and-simplebar-react)
 
 ---
 
@@ -121,17 +120,3 @@
 - **Version**: 15.8.1
 - **Description**: PropTypes is a library for typechecking React props to help you catch bugs in your components during development.
 - **Documentation**: [PropTypes Documentation](https://reactjs.org/docs/typechecking-with-proptypes.html)
-
-## 8. Simplebar and Simplebar-React
-
-### simplebar
-
-- **Version**: 5.3.8
-- **Description**: Simplebar is a lightweight JavaScript library that provides custom scrollbar solutions for web applications. It allows you to create custom scrollbars with ease.
-- **Documentation**: [Simplebar Documentation](https://github.com/Grsmto/simplebar)
-
-### simplebar-react
-
-- **Version**: 2.4.1
-- **Description**: Simplebar-React is a React wrapper for the Simplebar library. It enables you to easily integrate custom scrollbars into your React applications.
-- **Documentation**: [Simplebar-React Documentation](https://github.com/Grsmto/simplebar/tree/master/packages/simplebar-react)

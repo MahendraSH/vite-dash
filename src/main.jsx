@@ -10,20 +10,16 @@ import App from "./App.jsx";
 import store from "./app/store.js";
 import "./index.css";
 
-import SimpleBar from "simplebar-react";
-import "simplebar-react/dist/simplebar.min.css";
 import ScrollTop from "./hooks/scroll-to-top";
 import CustomThemeProvider from "./theme/custom-theme-provider.jsx";
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <Provider store={store}>
-      <BrowserRouter>
+      <BrowserRouter basename="/">
         <CustomThemeProvider>
-          <SimpleBar>
-            <ScrollTop>
-              <App />
-            </ScrollTop>
-          </SimpleBar>
+          <ScrollTop>
+            <App />
+          </ScrollTop>
         </CustomThemeProvider>
       </BrowserRouter>
     </Provider>
