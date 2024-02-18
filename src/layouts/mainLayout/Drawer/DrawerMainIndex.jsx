@@ -7,14 +7,16 @@ import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
 // eslint-disable-next-line react/prop-types
-const DrawerMainIndex = ({ open, handleDrawerToggle, fullOpen }) => {
+const DrawerMainIndex = ({ open, handleDrawerToggle, fullOpen, handleDrawerOnly }) => {
   const theme = useTheme();
   const location = useLocation();
   const width = `${drawerWidth}px`;
 
   const matchDownMD = useMediaQuery(theme.breakpoints.down("lg"));
 
-  useEffect(() => {}, [location.pathname]);
+  useEffect(() => {
+    handleDrawerOnly();
+  }, [location.pathname]);
 
   return (
     <>

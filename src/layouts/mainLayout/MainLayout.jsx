@@ -31,6 +31,11 @@ const MainLayout = () => {
     dispatch(openComponentDrawer({ componentDrawerOpen: !fullOpen }));
   };
 
+  const handleDrawerOnly = () => {
+    setOpen(!open);
+    dispatch(openDrawer({ drawerOpen: !open }));
+  };
+
   // set media wise responsive drawer
   useEffect(() => {
     setOpen(!matchDownLG);
@@ -42,8 +47,8 @@ const MainLayout = () => {
   return (
     <div>
       <Box sx={{ display: "flex", width: "100%" }}>
-        <Header open={open} handleDrawerToggle={handleDrawerToggle} />
-        <DrawerMainIndex open={open} handleDrawerToggle={handleDrawerToggle} fullOpen={fullOpen} />
+        <Header open={fullOpen} handleDrawerToggle={handleDrawerToggle} />
+        <DrawerMainIndex open={open} handleDrawerToggle={handleDrawerToggle} fullOpen={fullOpen} handleDrawerOnly={handleDrawerOnly} />
         <Box component="main" sx={{ width: "100%", flexGrow: 1, p: { xs: 2, sm: 3 }, ml: matchDownLG ? 0 : 5 }}>
           <Toolbar />
           <Outlet />
