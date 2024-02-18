@@ -27,22 +27,14 @@ import SettingTab from "./SettingTab";
 
 // assets
 import avatar1 from "@/assets/images/users/avatar-1.png";
-import {
-  LogoutOutlined,
-  SettingOutlined,
-  UserOutlined,
-} from "@ant-design/icons";
+import { LogoutOutlined, SettingOutlined, UserOutlined } from "@ant-design/icons";
+import { useDispatch } from "react-redux";
+import { logoutUser } from "@/app/features/userSlice";
 
 // tab panel wrapper
 function TabPanel({ children, value, index, ...other }) {
   return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`profile-tabpanel-${index}`}
-      aria-labelledby={`profile-tab-${index}`}
-      {...other}
-    >
+    <div role="tabpanel" hidden={value !== index} id={`profile-tabpanel-${index}`} aria-labelledby={`profile-tab-${index}`} {...other}>
       {value === index && children}
     </div>
   );
@@ -64,10 +56,11 @@ function a11yProps(index) {
 // ==============================|| HEADER CONTENT - PROFILE ||============================== //
 
 const Profile = () => {
+  const dispatch = useDispatch();
   const theme = useTheme();
 
   const handleLogout = async () => {
-    // logout
+    dispatch(logoutUser());
   };
 
   const anchorRef = useRef(null);
@@ -107,11 +100,7 @@ const Profile = () => {
         onClick={handleToggle}
       >
         <Stack direction="row" spacing={2} alignItems="center" sx={{ p: 0.5 }}>
-          <Avatar
-            alt="profile user"
-            src={avatar1}
-            sx={{ width: 32, height: 32 }}
-          />
+          <Avatar alt="profile user" src={avatar1} sx={{ width: 32, height: 32 }} />
           <Typography variant="subtitle1">John Doe</Typography>
         </Stack>
       </ButtonBase>
@@ -150,22 +139,10 @@ const Profile = () => {
                 <ClickAwayListener onClickAway={handleClose}>
                   <MainCard elevation={0} border={false} content={false}>
                     <CardContent sx={{ px: 2.5, pt: 3 }}>
-                      <Grid
-                        container
-                        justifyContent="space-between"
-                        alignItems="center"
-                      >
+                      <Grid container justifyContent="space-between" alignItems="center">
                         <Grid item>
-                          <Stack
-                            direction="row"
-                            spacing={1.25}
-                            alignItems="center"
-                          >
-                            <Avatar
-                              alt="profile user"
-                              src={avatar1}
-                              sx={{ width: 32, height: 32 }}
-                            />
+                          <Stack direction="row" spacing={1.25} alignItems="center">
+                            <Avatar alt="profile user" src={avatar1} sx={{ width: 32, height: 32 }} />
                             <Stack>
                               <Typography variant="h6">John Doe</Typography>
                               <Typography variant="body2" color="textSecondary">
@@ -175,11 +152,7 @@ const Profile = () => {
                           </Stack>
                         </Grid>
                         <Grid item>
-                          <IconButton
-                            size="large"
-                            color="secondary"
-                            onClick={handleLogout}
-                          >
+                          <IconButton size="large" color="secondary" onClick={handleLogout}>
                             <LogoutOutlined />
                           </IconButton>
                         </Grid>
@@ -188,12 +161,7 @@ const Profile = () => {
                     {open && (
                       <>
                         <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-                          <Tabs
-                            variant="fullWidth"
-                            value={value}
-                            onChange={handleChange}
-                            aria-label="profile tabs"
-                          >
+                          <Tabs variant="fullWidth" value={value} onChange={handleChange} aria-label="profile tabs">
                             <Tab
                               sx={{
                                 display: "flex",

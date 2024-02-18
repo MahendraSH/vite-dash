@@ -1,6 +1,5 @@
 import React from "react";
-import { Link as RouterLink } from "react-router-dom";
-import Snackbar from "@mui/material/Snackbar";
+import { Link as RouterLink, useNavigate } from "react-router-dom";
 
 // material-ui
 import {
@@ -21,15 +20,14 @@ import {
 import { Formik } from "formik";
 import * as Yup from "yup";
 
+import { signIn } from "@/app/features/userSlice";
 import { EyeInvisibleOutlined, EyeOutlined } from "@ant-design/icons";
 import { useDispatch } from "react-redux";
-import { signIn } from "@/app/features/userSlice";
-import { useTheme } from "@emotion/react";
+import toast from "react-hot-toast";
 
 const LoginForm = () => {
-  const theme = useTheme();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [isSuccess, SetIsSuccess] = React.useState(false);
   const [checked, setChecked] = React.useState(false);
 
   const [showPassword, setShowPassword] = React.useState(false);
@@ -43,13 +41,6 @@ const LoginForm = () => {
 
   return (
     <>
-      <Snackbar
-        open={isSuccess}
-        autoHideDuration={3000}
-        message=" Login Success Full"
-        onClose={() => SetIsSuccess(false)}
-        color={theme.palette.success.dark}
-      />
       <Formik
         initialValues={{
           email: "demoadmin@gmail.com",
@@ -70,7 +61,8 @@ const LoginForm = () => {
             setErrors({ submit: err.message });
             setSubmitting(false);
           } finally {
-            SetIsSuccess(true);
+            toast.success("Login successful");
+            navigate("/");
           }
         }}
       >

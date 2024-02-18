@@ -1,10 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { nanoid } from "@reduxjs/toolkit";
 
 const initialState = {
   user: {},
-  status: "idle",
-  error: undefined,
 };
 
 export const authSlice = createSlice({
