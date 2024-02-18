@@ -1,15 +1,10 @@
+/* eslint-disable react/display-name */
 import PropTypes from "prop-types";
 import { forwardRef } from "react";
 
 // material-ui
+import { Card, CardContent, CardHeader, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  Divider,
-  Typography,
-} from "@mui/material";
 
 // header style
 const headerSX = {
@@ -33,7 +28,6 @@ const MainCard = forwardRef(
       shadow,
       sx = {},
       title,
-      codeHighlight,
       ...others
     },
     ref
@@ -49,14 +43,8 @@ const MainCard = forwardRef(
         sx={{
           border: border ? "1px solid" : "none",
           borderRadius: 2,
-          borderColor:
-            theme.palette.mode === "dark"
-              ? theme.palette.divider
-              : theme.palette.grey.A800,
-          boxShadow:
-            boxShadow && (!border || theme.palette.mode === "dark")
-              ? shadow || theme.customShadows.z1
-              : "inherit",
+          borderColor: theme.palette.mode === "dark" ? theme.palette.divider : theme.palette.grey.A800,
+          boxShadow: boxShadow && (!border || theme.palette.mode === "dark") ? shadow || theme.customShadows.z1 : "inherit",
           ":hover": {
             boxShadow: boxShadow ? shadow || theme.customShadows.z1 : "inherit",
           },
@@ -71,20 +59,9 @@ const MainCard = forwardRef(
       >
         {/* card header and action */}
         {!darkTitle && title && (
-          <CardHeader
-            sx={headerSX}
-            titleTypographyProps={{ variant: "subtitle1" }}
-            title={title}
-            action={secondary}
-          />
+          <CardHeader sx={headerSX} titleTypographyProps={{ variant: "subtitle1" }} title={title} action={secondary} />
         )}
-        {darkTitle && title && (
-          <CardHeader
-            sx={headerSX}
-            title={<Typography variant="h3">{title}</Typography>}
-            action={secondary}
-          />
-        )}
+        {darkTitle && title && <CardHeader sx={headerSX} title={<Typography variant="h3">{title}</Typography>} action={secondary} />}
 
         {/* card content */}
         {content && <CardContent sx={contentSX}>{children}</CardContent>}
