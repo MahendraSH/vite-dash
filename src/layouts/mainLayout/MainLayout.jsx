@@ -5,7 +5,7 @@ import { Outlet } from "react-router-dom";
 import { Box, Toolbar, useMediaQuery } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 
-import { openDrawer } from "@/app/features/menuSlice";
+import { openComponentDrawer, openDrawer } from "@/app/features/menuSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 import Header from "./Header/MainHeaderIndex";
@@ -18,11 +18,17 @@ const MainLayout = () => {
 
   const { drawerOpen } = useSelector((state) => state.menu);
 
+  const { componentDrawerOpen } = useSelector((state) => state.menu);
+
   // drawer toggler
   const [open, setOpen] = useState(drawerOpen);
+  const [fullOpen, setFullOpen] = useState(componentDrawerOpen);
   const handleDrawerToggle = () => {
     setOpen(!open);
     dispatch(openDrawer({ drawerOpen: !open }));
+
+    setFullOpen(!fullOpen);
+    dispatch(openComponentDrawer({ componentDrawerOpen: !fullOpen }));
   };
 
   // set media wise responsive drawer
@@ -37,7 +43,7 @@ const MainLayout = () => {
     <div>
       <Box sx={{ display: "flex", width: "100%" }}>
         <Header open={open} handleDrawerToggle={handleDrawerToggle} />
-        <DrawerMainIndex open={!open} handleDrawerToggle={handleDrawerToggle} />
+        <DrawerMainIndex open={open} handleDrawerToggle={handleDrawerToggle} fullOpen={fullOpen} />
         <Box component="main" sx={{ width: "100%", flexGrow: 1, p: { xs: 2, sm: 3 }, ml: matchDownLG ? 0 : 5 }}>
           <Toolbar />
           <Outlet />

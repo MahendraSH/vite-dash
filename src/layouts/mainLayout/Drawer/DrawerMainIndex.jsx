@@ -3,13 +3,18 @@ import { useTheme } from "@emotion/react";
 import { Box, useMediaQuery } from "@mui/material";
 import { Sidebar } from "react-pro-sidebar";
 import MenuItemsList from "./MenuItemsList";
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
 // eslint-disable-next-line react/prop-types
-const DrawerMainIndex = ({ open, handleDrawerToggle }) => {
+const DrawerMainIndex = ({ open, handleDrawerToggle, fullOpen }) => {
   const theme = useTheme();
+  const location = useLocation();
   const width = `${drawerWidth}px`;
 
   const matchDownMD = useMediaQuery(theme.breakpoints.down("lg"));
+
+  useEffect(() => {}, [location.pathname]);
 
   return (
     <>
@@ -19,12 +24,12 @@ const DrawerMainIndex = ({ open, handleDrawerToggle }) => {
           height={"100%"}
           maxHeight={"100vh"}
           sx={{ overflowY: "auto" }}
-          width={open ? "40px" : drawerWidth}
+          width={!fullOpen ? "40px" : drawerWidth}
           className="scroll"
         >
           <Sidebar
             className="scroll"
-            collapsed={open}
+            collapsed={!fullOpen}
             breakPoint="md"
             style={{
               position: "fixed",
@@ -45,7 +50,7 @@ const DrawerMainIndex = ({ open, handleDrawerToggle }) => {
       {matchDownMD && (
         <Sidebar
           className="scroll"
-          toggled={!open}
+          toggled={open}
           breakPoint="all"
           onBackdropClick={handleDrawerToggle}
           style={{ background: theme.palette.background.paper, zIndex: 8 }}
