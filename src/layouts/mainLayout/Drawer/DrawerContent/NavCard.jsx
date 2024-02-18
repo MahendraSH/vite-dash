@@ -6,7 +6,6 @@ import MainCard from "@/components/main-card";
 
 // assets
 import avatar from "@/assets/images/users/avatar-group.png";
-import AnimateButton from "@/components/@extended/AnimateButton";
 
 // ==============================|| DRAWER CONTENT - NAVIGATION CARD ||============================== //
 
@@ -20,18 +19,9 @@ const NavCard = () => (
           explore more
         </Typography>
       </Stack>
-      <AnimateButton>
-        <Button
-          component={Link}
-          target="_blank"
-          href="/"
-          variant="contained"
-          color="success"
-          size="small"
-        >
-          hi
-        </Button>
-      </AnimateButton>
+      <Button component={Link} target="_blank" href="/" variant="contained" color="success" size="small">
+        hi
+      </Button>
     </Stack>
   </MainCard>
 );
