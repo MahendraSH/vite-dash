@@ -45,7 +45,7 @@ const DrawerMainIndex = ({ open, handleDrawerToggle }) => {
       {matchDownMD && (
         <Sidebar
           className="scroll"
-          toggled={open}
+          toggled={!open}
           breakPoint="all"
           onBackdropClick={handleDrawerToggle}
           style={{ background: theme.palette.background.paper, zIndex: 8 }}
