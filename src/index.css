@@ -20,3 +20,23 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: hsl(214, 3%, 41%);
 }
+
+div::-webkit-scrollbar {
+  display: none;
+}
+
+div {
+  scrollbar-width: 0;
+}
+
+div:hover::-webkit-scrollbar {
+  display: flex;
+}
+
+div:hover {
+  scrollbar-width: 0.2rem;
+}
+
+html {
+  scroll-behavior: smooth;
+}

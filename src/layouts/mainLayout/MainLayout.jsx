@@ -8,8 +8,8 @@ import { useTheme } from "@mui/material/styles";
 import { openDrawer } from "@/app/features/menuSlice";
 import { useDispatch, useSelector } from "react-redux";
 
-import MainDrawer from "./Drawer/MainDrawerIndex";
 import Header from "./Header/MainHeaderIndex";
+import DrawerMainIndex from "./Drawer/DrawerMainIndex";
 
 const MainLayout = () => {
   const theme = useTheme();
@@ -37,11 +37,8 @@ const MainLayout = () => {
     <div>
       <Box sx={{ display: "flex", width: "100%" }}>
         <Header open={open} handleDrawerToggle={handleDrawerToggle} />
-        <MainDrawer open={open} handleDrawerToggle={handleDrawerToggle} />
-        <Box
-          component="main"
-          sx={{ width: "100%", flexGrow: 1, p: { xs: 2, sm: 3 } }}
-        >
+        <DrawerMainIndex open={!open} handleDrawerToggle={handleDrawerToggle} />
+        <Box component="main" sx={{ width: "100%", flexGrow: 1, p: { xs: 2, sm: 3 }, ml: 5 }}>
           <Toolbar />
           <Outlet />
         </Box>
