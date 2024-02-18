@@ -50,7 +50,7 @@ const DrawerMainIndex = ({ open, handleDrawerToggle }) => {
           onBackdropClick={handleDrawerToggle}
           style={{ background: theme.palette.background.paper, zIndex: 8 }}
         >
-          <MenuItemsList />
+          <MenuItemsList open={open} />
         </Sidebar>
       )}
     </>

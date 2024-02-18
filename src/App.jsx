@@ -5,6 +5,7 @@ import Dashboard from "./pages/Dashboard";
 import SamplePage from "./pages/SamplePage";
 import LoginPage from "./pages/auth/LoginPage";
 import RegisterPage from "./pages/auth/RegisterPage";
+import DemoPage from "./pages/DemoPage";
 
 const App = () => {
   return (
@@ -14,6 +15,7 @@ const App = () => {
           <Route path="/" element={<Navigate to={"/"} replace />} />
           <Route path="dash" element={<Dashboard />} />
           <Route path="sample-page" element={<SamplePage />} />
+          <Route path="*" element={<DemoPage />} />
         </Route>
         <Route element={<AuthLayout />}>
           <Route path="/login" element={<LoginPage />} />

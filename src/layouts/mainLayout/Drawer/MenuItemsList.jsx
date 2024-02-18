@@ -1,37 +1,9 @@
 import Logo from "@/components/logo";
-import { Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { Link, useLocation } from "react-router-dom";
-import {
-  LoginOutlined,
-  ProfileOutlined,
-  ChromeOutlined,
-  QuestionOutlined,
-  AppstoreAddOutlined,
-  AntDesignOutlined,
-  BarcodeOutlined,
-  BgColorsOutlined,
-  FontSizeOutlined,
-  LoadingOutlined,
-  BarChartOutlined,
-  DashboardOutlined,
-} from "@ant-design/icons";
-import { Menu, MenuItem, SubMenu, menuClasses } from "react-pro-sidebar";
+import * as icons from "@ant-design/icons";
+import { Menu, MenuItem, SubMenu } from "react-pro-sidebar";
 import { useTheme } from "@emotion/react";
-
-const icons = {
-  DashboardOutlined,
-  BarChartOutlined,
-  LoginOutlined,
-  ProfileOutlined,
-  ChromeOutlined,
-  QuestionOutlined,
-  AppstoreAddOutlined,
-  AntDesignOutlined,
-  BarcodeOutlined,
-  BgColorsOutlined,
-  FontSizeOutlined,
-  LoadingOutlined,
-};
 
 const MenuItemsList = () => {
   const theme = useTheme();
@@ -69,9 +41,15 @@ const MenuItemsList = () => {
       type: "submenu",
       icon: icons.BarChartOutlined,
       children: [
-        { id: "pie-charts", title: "Pie Charts", type: "item", url: "/pie-charts" },
-        { id: "line-charts", title: "Line Charts", type: "item", url: "/line-charts" },
-        { id: "bar-charts", title: "Bar Charts", type: "item", url: "/bar-charts" },
+        { id: "pie-charts", title: "Pie Charts", type: "item", url: "/pie-charts", isActive: location.pathname.includes("/pie-charts") },
+        {
+          id: "line-charts",
+          title: "Line Charts",
+          type: "item",
+          url: "/line-charts",
+          isActive: location.pathname.includes("/line-charts"),
+        },
+        { id: "bar-charts", title: "Bar Charts", type: "item", url: "/bar-charts", isActive: location.pathname.includes("/bar-charts") },
       ],
     },
     {
@@ -80,8 +58,8 @@ const MenuItemsList = () => {
       type: "submenu",
       icon: icons.LoginOutlined,
       children: [
-        { id: "login", title: "Login", type: "item", url: "/login" },
-        { id: "register", title: "Register", type: "item", url: "/register" },
+        { id: "login", title: "Login", type: "item", url: "/login", isActive: location.pathname.includes("/login") },
+        { id: "register", title: "Register", type: "item", url: "/register", isActive: location.pathname.includes("/register") },
       ],
     },
     {
@@ -90,26 +68,64 @@ const MenuItemsList = () => {
       type: "submenu",
       icon: icons.AntDesignOutlined,
       children: [
-        { id: "typography", title: "Typography", type: "item", url: "/typography" },
-        { id: "color", title: "Color", type: "item", url: "/color" },
-        { id: "shadow", title: "Shadow", type: "item", url: "/shadow" },
-        { id: "ant-icons", title: "Ant Icons", type: "item", url: "/icons/ant", breadcrumbs: false },
+        { id: "typography", title: "Typography", type: "item", url: "/typography", isActive: location.pathname.includes("/typography") },
+        { id: "color", title: "Color", type: "item", url: "/color", isActive: location.pathname.includes("/color") },
+        { id: "shadow", title: "Shadow", type: "item", url: "/shadow", isActive: location.pathname.includes("/shadow") },
+        {
+          id: "ant-icons",
+          title: "Ant Icons",
+          type: "item",
+          url: "/icons/ant",
+          breadcrumbs: false,
+          isActive: location.pathname.includes("/icons/ant"),
+        },
       ],
     },
+    // Add more menu items here
+    {
+      id: "settings",
+      title: "Settings",
+      type: "item",
+      icon: icons.BgColorsOutlined,
+      url: "/settings",
+      isActive: location.pathname.includes("/settings"),
+    },
+    {
+      id: "profile",
+      title: "Profile",
+      type: "item",
+      icon: icons.ProfileOutlined,
+      url: "/profile",
+      isActive: location.pathname.includes("/profile"),
+    },
+    {
+      id: "help",
+      title: "Help",
+      type: "item",
+      icon: icons.QuestionOutlined,
+      url: "/help",
+      isActive: location.pathname.includes("/help"),
+    },
+    {
+      id: "about",
+      title: "About",
+      type: "item",
+      icon: icons.AppstoreAddOutlined,
+      url: "/about",
+      isActive: location.pathname.includes("/about"),
+    },
   ];
+  const isAnyChildActive = (children) => {
+    return children.some((child) => child.isActive);
+  };
 
   return (
-    <Menu
-      rootStyles={{
-        [`.${menuClasses.icon}`]: {
-          backgroundColor: "#e1e1e1",
-          color: "#344cff",
-        },
-      }}
-    >
-      <MenuItem icon={<Logo />}>
-        <Typography variant="h4"> NavIcon</Typography>
-      </MenuItem>
+    <Menu>
+      <Box sx={{ py: 1 }}>
+        <MenuItem icon={<Logo />}>
+          <Typography variant="h4"> NavIcon</Typography>
+        </MenuItem>
+      </Box>
       {menuItems.map((menuItem) => {
         if (menuItem.type === "item") {
           return (
@@ -123,6 +139,8 @@ const MenuItemsList = () => {
                 borderRightWidth: menuItem.isActive && "0.24rem",
                 borderRightColor: menuItem.isActive && theme.palette.primary.dark,
                 borderStyle: menuItem.isActive && "solid",
+
+                color: menuItem.isActive ? theme.palette.primary.darker : theme.palette.grey[900],
               }}
             >
               {menuItem.title}
@@ -130,12 +148,30 @@ const MenuItemsList = () => {
           );
         } else if (menuItem.type === "submenu") {
           return (
-            <SubMenu key={menuItem.id} label={menuItem.title} icon={<menuItem.icon />}>
+            <SubMenu
+              key={menuItem.id}
+              label={menuItem.title}
+              icon={<menuItem.icon />}
+              style={{
+                border: 0,
+                background: isAnyChildActive(menuItem.children) && theme.palette.primary.lighter,
+                borderRightWidth: isAnyChildActive(menuItem.children) && "0.24rem",
+                borderRightColor: isAnyChildActive(menuItem.children) && theme.palette.primary.dark,
+                borderStyle: isAnyChildActive(menuItem.children) && "solid",
+
+                color: menuItem.isActive ? theme.palette.primary.darker : theme.palette.grey[900],
+              }}
+            >
               {menuItem.children.map((subMenuItem) => (
                 <MenuItem
                   key={subMenuItem.id}
                   icon={subMenuItem.icon ? <subMenuItem.icon /> : null}
                   component={<Link to={subMenuItem.url} />}
+                  style={{
+                    background: subMenuItem.isActive && theme.palette.primary.lighter,
+
+                    color: subMenuItem.isActive ? theme.palette.primary.darker : theme.palette.grey[900],
+                  }}
                 >
                   {subMenuItem.title}
                 </MenuItem>
