@@ -28,15 +28,3 @@ div::-webkit-scrollbar {
 div {
   scrollbar-width: 0;
 }
-
-div:hover::-webkit-scrollbar {
-  display: flex;
-}
-
-div:hover {
-  scrollbar-width: 0.2rem;
-}
-
-html {
-  scroll-behavior: smooth;
-}
