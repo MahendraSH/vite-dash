@@ -16,12 +16,17 @@ import {
   TextField,
   Typography,
   FormControl,
+  useMediaQuery,
 } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { useTheme } from "@emotion/react";
 
 const DynamicForm = ({ formConfig }) => {
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(() => theme.breakpoints.down("sm"));
+
   const initialValues = {};
   const formItems = formConfig["form-items"];
 
@@ -90,7 +95,7 @@ const DynamicForm = ({ formConfig }) => {
                 )}
                 {item.type === "radio" && (
                   <RadioGroup name={item.name} value={values[item.name]} onChange={handleChange}>
-                    <Stack direction="row">
+                    <Stack direction={isSmallScreen ? "column" : "row"}>
                       {item.options.map((option, index) => (
                         <FormControlLabel key={index} value={option} control={<Radio />} label={option} />
                       ))}
@@ -98,7 +103,7 @@ const DynamicForm = ({ formConfig }) => {
                   </RadioGroup>
                 )}
                 {item.type === "checkbox" && (
-                  <Stack direction="row">
+                  <Stack direction={isSmallScreen ? "column" : "row"}>
                     {item.options.map((option, index) => (
                       <FormControlLabel
                         key={index}
