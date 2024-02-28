@@ -20,12 +20,35 @@ const MenuItemsList = () => {
       isActive: location.pathname.includes("/dash"),
     },
     {
-      id: "calendar",
-      title: "Calendar",
-      type: "item",
-      icon: icons.ChromeOutlined,
-      url: "/calendar",
-      isActive: location.pathname.includes("/calendar"),
+      id: "form",
+      title: "Forms",
+      type: "submenu",
+      icon: icons.FormOutlined,
+      children: [
+        {
+          id: "employ-form",
+          title: "Employ Details",
+          type: "item",
+          url: "/form-employ",
+          isActive: location.pathname.includes("/form-employ"),
+        },
+        {
+          id: "student-form",
+          title: "Student Details",
+          type: "item",
+          url: "/form-student",
+          isActive: location.pathname.includes("/form-student"),
+        },
+        {
+          id: "event-register",
+          title: "Event Register Details",
+          type: "item",
+          url: "/event-register",
+          isActive: location.pathname.includes("/event-register"),
+        },
+      ],
+
+      isActive: location.pathname.includes("/form"),
     },
     {
       id: "sample-page",

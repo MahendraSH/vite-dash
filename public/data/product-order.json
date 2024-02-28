@@ -1,0 +1,43 @@
+{
+  "form-heading": "Product Order Form",
+  "form-description": "Please provide the following details to place your order.",
+  "form-items": [
+    {
+      "label": "Product Name",
+      "type": "input-text",
+      "name": "productName"
+    },
+    {
+      "label": "Quantity",
+      "type": "input-number",
+      "name": "quantity"
+    },
+    {
+      "label": "Shipping Address",
+      "type": "text-area",
+      "name": "shippingAddress"
+    },
+    {
+      "label": "Payment Method",
+      "type": "select",
+      "options": ["Credit Card", "Debit Card", "PayPal", "Bank Transfer"],
+      "name": "paymentMethod"
+    },
+    {
+      "label": "Terms and Conditions",
+      "type": "checkbox",
+      "options": ["I agree to the terms and conditions"],
+      "name": "termsAndConditions"
+    }
+  ],
+  "form-btns": [
+    {
+      "label": "Submit Order",
+      "type": "submit"
+    },
+    {
+      "label": "Clear",
+      "type": "reset"
+    }
+  ]
+}
