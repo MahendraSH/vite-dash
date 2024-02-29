@@ -6,7 +6,7 @@ import { Box } from "@mui/material";
 const TableCard = ({ children, ...other }) => (
   <MainCard
     sx={{
-      maxWidth: { xs: "85%", md: "90%" },
+      maxWidth: { xs: "95%", md: "90%" },
       margin: { xs: 2.5, md: 3 },
       "& > *": {
         flexGrow: 1,

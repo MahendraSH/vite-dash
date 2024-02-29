@@ -18,6 +18,7 @@ import LastPageIcon from "@mui/icons-material/LastPage";
 import { TableHead } from "@mui/material";
 import SearchAccToIndex from "./SearchAccToIndex";
 import SearchIndexSelectForm from "./SearchIndexSelect";
+import RowActions from "./RowActions";
 
 function TablePaginationActions(props) {
   const theme = useTheme();
@@ -99,6 +100,7 @@ export default function DynamicTable({ tableColumns, tableData, Search }) {
                 {item.header}
               </TableCell>
             ))}
+            <TableCell align="center">Actions</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -109,6 +111,9 @@ export default function DynamicTable({ tableColumns, tableData, Search }) {
                   {row[column.field]}
                 </TableCell>
               ))}
+              <TableCell align="right" sx={{ px: { xs: 2, md: 3, lg: 4 }, py: 2 }}>
+                <RowActions />
+              </TableCell>
             </TableRow>
           ))}
           {emptyRows > 0 && (
