@@ -11,6 +11,7 @@ import { useEffect } from "react";
 import FormEmploy from "./pages/form/FormEmploy";
 import FormStudent from "./pages/form/FormStudent";
 import FormEventRegister from "./pages/form/FormEventRegister";
+import EmployTable from "./pages/table/EmployTable";
 
 const App = () => {
   const user = useSelector((state) => state.auth.user);
@@ -30,6 +31,9 @@ const App = () => {
           <Route path="/form-employ" element={<FormEmploy />} />
           <Route path="/form-student" element={<FormStudent />} />
           <Route path="/event-register" element={<FormEventRegister />} />
+          <Route path="table-employ" element={<EmployTable />} />
+          <Route path="table-student" element={<SamplePage />} />
+          <Route path="table-register" element={<SamplePage />} />
           <Route path="sample-page" element={<SamplePage />} />
           <Route path="*" element={<DemoPage />} />
         </Route>

@@ -27,28 +27,55 @@ const MenuItemsList = () => {
       children: [
         {
           id: "employ-form",
-          title: "Employ Details",
+          title: "Employ Details Form",
           type: "item",
           url: "/form-employ",
           isActive: location.pathname.includes("/form-employ"),
         },
         {
           id: "student-form",
-          title: "Student Details",
+          title: "Student Details Form",
           type: "item",
           url: "/form-student",
           isActive: location.pathname.includes("/form-student"),
         },
         {
           id: "event-register",
-          title: "Event Register Details",
+          title: "Event Register Details Form",
           type: "item",
           url: "/event-register",
           isActive: location.pathname.includes("/event-register"),
         },
       ],
-
-      isActive: location.pathname.includes("/form"),
+    },
+    {
+      id: "tables",
+      title: "Tables",
+      type: "submenu",
+      icon: icons.TableOutlined,
+      children: [
+        {
+          id: "employ-table",
+          title: "Employ Details Table",
+          type: "item",
+          url: "/table-employ",
+          isActive: location.pathname.includes("/table-employ"),
+        },
+        {
+          id: "student-table",
+          title: "Student Details Table",
+          type: "item",
+          url: "/table-student",
+          isActive: location.pathname.includes("/table-student"),
+        },
+        {
+          id: "table-event-register",
+          title: "Event Register Details Table",
+          type: "item",
+          url: "/table-register",
+          isActive: location.pathname.includes("/table-register"),
+        },
+      ],
     },
     {
       id: "sample-page",
