@@ -121,7 +121,13 @@ export default function DynamicTable({ tableColumns, tableData, Search }) {
               <TableCell colSpan={tableColumns.length} />
             </TableRow>
           )}
-          <Typography variant="body1"> result not found </Typography>
+          {data.length === 0 && (
+            <TableRow sx={{ alignContent: "center", alignItems: "center" }}>
+              <TableCell colSpan={tableColumns.length} sx={{ alignContent: "center", alignItems: "center" }}>
+                No Result .
+              </TableCell>
+            </TableRow>
+          )}
         </TableBody>
         <TableFooter>
           <TableRow>

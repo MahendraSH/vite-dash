@@ -37,10 +37,8 @@ const SearchAccToIndex = ({ search, setSearch }) => {
                 value={values.searchInputText}
                 name="searchInputText"
                 onChange={(event) => {
-                  setTimeout(() => {
-                    handleChange(event);
-                    handleSubmit(event);
-                  }, 1800);
+                  handleChange(event);
+                  handleSubmit(event);
                 }}
                 placeholder="search ...."
                 fullWidth
