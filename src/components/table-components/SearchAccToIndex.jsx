@@ -3,6 +3,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import * as Yup from "yup";
 import { OutlinedInput, Box } from "@mui/material";
+import { setInterval } from "timers/promises";
 
 const SearchAccToIndex = ({ search, setSearch }) => {
   return (
@@ -36,8 +37,12 @@ const SearchAccToIndex = ({ search, setSearch }) => {
                 type="input"
                 value={values.searchInputText}
                 name="searchInputText"
-                onBlur={handleSubmit}
-                onChange={handleChange}
+                onChange={(event) => {
+                  setInterval(() => {
+                    handleChange(event);
+                    handleSubmit(event);
+                  }, 1800);
+                }}
                 placeholder="search ...."
                 fullWidth
                 error={Boolean(touched.searchInputText && errors.searchInputText)}

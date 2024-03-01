@@ -15,7 +15,7 @@ import FirstPageIcon from "@mui/icons-material/FirstPage";
 import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 import LastPageIcon from "@mui/icons-material/LastPage";
-import { TableHead } from "@mui/material";
+import { TableHead, Typography } from "@mui/material";
 import SearchAccToIndex from "./SearchAccToIndex";
 import SearchIndexSelectForm from "./SearchIndexSelect";
 import RowActions from "./RowActions";
@@ -121,6 +121,7 @@ export default function DynamicTable({ tableColumns, tableData, Search }) {
               <TableCell colSpan={tableColumns.length} />
             </TableRow>
           )}
+          <Typography variant="body1"> result not found </Typography>
         </TableBody>
         <TableFooter>
           <TableRow>
