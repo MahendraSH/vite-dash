@@ -6,6 +6,7 @@ import userRoutes from "./routes/userRoutes.js";
 import fomrDataRotues from "./routes/formDataRoutes.js";
 import dataTableRoutes from "./routes/dataTableRoutes.js";
 import uiRoutes from "./routes/uiRoutes.js";
+import path from "path";
 
 const app = Express();
 app.use(Express.json());
@@ -22,11 +23,14 @@ app.use("/api/data/form", fomrDataRotues);
 app.use("api/data/table", dataTableRoutes);
 app.use("api/ui", uiRoutes);
 // Serve static files from the 'dist' directory
-app.use(express.static(path.join(__dirname, "..", "react-app", "dist")));
+const __dirname = path.dirname(new URL(import.meta.url).pathname);
+app.use(Express.static(path.join(__dirname, "..", "react-app", "dist")));
 
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "react-app", "dist", "index.html"));
+  res.sendFile(path.join(__dirname, "..", "react-app", "dist", "index.html"));
 });
+
+// console.log(path.dirname)
 
 const port = process.env.PORT || 8000;
 app.listen(port, () => {
