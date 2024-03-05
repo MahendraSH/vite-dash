@@ -21,6 +21,12 @@ app.use("/api/user", userRoutes);
 app.use("/api/data/form", fomrDataRotues);
 app.use("api/data/table", dataTableRoutes);
 app.use("api/ui", uiRoutes);
+// Serve static files from the 'dist' directory
+app.use(express.static(path.join(__dirname, "..", "react-app", "dist")));
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "react-app", "dist", "index.html"));
+});
 
 const port = process.env.PORT || 8000;
 app.listen(port, () => {
