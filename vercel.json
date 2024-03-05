@@ -6,13 +6,13 @@
       "use": "@vercel/node"
     },
     {
-      "src": "/react-app/dist",
+      "src": "/react-app",
       "use": "@vercel/static-build"
     }
   ],
   "routes": [
     { "src": "/node-app/(.*)", "dest": "/node-app/index.js" },
     { "src": "/api/(.*)", "dest": "/node-app/index.js" },
-    { "src": "/(.*)", "dest": "/react-app/dist/index.html" }
+    { "src": "/(.*)", "dest": "/react-app/index.html" }
   ]
 }
