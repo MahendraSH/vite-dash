@@ -1,27 +1,12 @@
 import { Router } from "express";
+import { getAllUsers, getProfileDetails, loginUser } from "../controllers/user-controller.js";
+import { isUser } from "../utils/is-user.js";
+import { isAdmin } from "../utils/is-admin.js";
 
 const router = Router();
 
-router.route("/login").get((req, res) => {
-  const user = {
-    userName: "demoUser",
-    password: "demoUser@123",
-  };
-  if (
-    req.body.userName !== user.userName ||
-    req.body.password !== user.password
-  ) {
-    res.status(401).json({
-      success: false,
-      message: " user name or password is wrong please check once  ",
-    });
-  }
-
-  res.status(200).json({
-    success: true,
-    message: "login successfull ",
-    user: user,
-  });
-});
+router.route("/login").post(loginUser);
+router.route("/me").get(isUser, getProfileDetails);
+router.route("/all").get(isUser, isAdmin("admin"), getAllUsers);
 
 export default router;
