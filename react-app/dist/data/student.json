@@ -1,0 +1,59 @@
+{
+  "form-heading": "Student Information Form",
+  "form-description": "Please provide the following details to update your student information.",
+  "form-items": [
+    {
+      "label": "First Name",
+      "type": "input-text",
+      "name": "firstName"
+    },
+    {
+      "label": "Last Name",
+      "type": "input-text",
+      "name": "lastName"
+    },
+    {
+      "label": "Age",
+      "type": "input-number",
+      "name": "age"
+    },
+    {
+      "label": "Gender",
+      "type": "radio",
+      "options": ["male", "female", "others"],
+      "name": "gender"
+    },
+    {
+      "label": "Address",
+      "type": "text-area",
+      "name": "address"
+    },
+    {
+      "label": "Class",
+      "type": "select",
+      "options": ["10th", "11th", "12th"],
+      "name": "class"
+    },
+    {
+      "label": "Subjects",
+      "type": "checkbox",
+      "options": ["Mathematics", "Science", "History", "English"],
+      "name": "subjects"
+    },
+    {
+      "label": "Date Of Birth",
+      "type": "date-picker",
+      "name": "dob"
+    }
+  ],
+  "form-btns": [
+    {
+      "label": "Submit",
+      "type": "submit"
+    },
+    {
+      "label": "Clear",
+      "type": "reset"
+    }
+  ]
+}

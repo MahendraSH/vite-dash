@@ -1,0 +1,59 @@
+{
+  "form-heading": "Employee Information Form",
+  "form-description": "Please fill out the following details to update your employee information.",
+  "form-items": [
+    {
+      "label": "First Name",
+      "type": "input-text",
+      "name": "firstName"
+    },
+    {
+      "label": "Last Name",
+      "type": "input-text",
+      "name": "lastName"
+    },
+    {
+      "label": "Age",
+      "type": "input-number",
+      "name": "age"
+    },
+    {
+      "label": "Gender",
+      "type": "radio",
+      "options": ["male", "female", "others"],
+      "name": "gender"
+    },
+    {
+      "label": "Bio",
+      "type": "text-area",
+      "name": "bio"
+    },
+    {
+      "label": "Department",
+      "type": "select",
+      "options": ["sales", "marketing", "support&help", "Developer"],
+      "name": "department"
+    },
+    {
+      "label": "Language",
+      "type": "checkbox",
+      "options": ["English", "Kannada", "Hindi", "Others"],
+      "name": "language"
+    },
+    {
+      "label": "Date Of Birth",
+      "type": "date-picker",
+      "name": "dob"
+    }
+  ],
+  "form-btns": [
+    {
+      "label": "Submit",
+      "type": "submit"
+    },
+    {
+      "label": "Clear",
+      "type": "reset"
+    }
+  ]
+}

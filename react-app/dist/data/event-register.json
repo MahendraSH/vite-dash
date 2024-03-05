@@ -1,0 +1,53 @@
+{
+  "form-heading": "Event Registration Form",
+  "form-description": "Please fill out the following details to register for the event.",
+  "form-items": [
+    {
+      "label": "Full Name",
+      "type": "input-text",
+      "name": "fullName"
+    },
+    {
+      "label": "Email",
+      "type": "input-text",
+      "name": "email"
+    },
+    {
+      "label": "Phone Number",
+      "type": "input-text",
+      "name": "phoneNumber"
+    },
+    {
+      "label": "Event Type",
+      "type": "select",
+      "options": ["Conference", "Workshop", "Seminar", "Networking Event"],
+      "name": "eventType"
+    },
+    {
+      "label": "Number of Guests",
+      "type": "input-number",
+      "name": "numberOfGuests"
+    },
+    {
+      "label": "Dietary Restrictions",
+      "type": "checkbox",
+      "options": ["Vegetarian", "Vegan", "Gluten-free", "Nut-free", "None"],
+      "name": "dietaryRestrictions"
+    },
+    {
+      "label": "Comments",
+      "type": "text-area",
+      "name": "comments"
+    }
+  ],
+  "form-btns": [
+    {
+      "label": "Register",
+      "type": "submit"
+    },
+    {
+      "label": "Clear",
+      "type": "reset"
+    }
+  ]
+}
