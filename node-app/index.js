@@ -24,10 +24,10 @@ app.use("api/data/table", dataTableRoutes);
 app.use("api/ui", uiRoutes);
 // Serve static files from the 'dist' directory
 const __dirname = path.dirname(new URL(import.meta.url).pathname);
-app.use(Express.static(path.join(__dirname, "..", "react-app", "dist")));
+app.use(Express.static(path.join(__dirname, "dist")));
 
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "..", "react-app", "dist", "index.html"));
+  res.sendFile(path.join(__dirname, "dist", "index.html"));
 });
 
 // console.log(path.dirname)

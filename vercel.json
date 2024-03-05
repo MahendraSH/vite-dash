@@ -1,15 +1,6 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "/node-app/index.js",
-      "use": "@vercel/node"
-    },
-    {
-      "src": "/react-app",
-      "use": "@vercel/static-build"
-    }
-  ],
+
   "routes": [
     { "src": "/node-app/(.*)", "dest": "/node-app/index.js" },
     { "src": "/api/(.*)", "dest": "/node-app/index.js" },
