@@ -1,5 +1,4 @@
 import Express from "express";
-import cors from "cors";
 import dotenv from "dotenv";
 
 // routes imports
@@ -11,12 +10,6 @@ import uiRoutes from "./routes/uiRoutes.js";
 const app = Express();
 app.use(Express.json());
 app.use(Express.urlencoded({ extended: true }));
-app.use(
-  cors({
-    credentials: true,
-    origin: ["http://localhost:5173/", "https://vite-dash-two.vercel.app/"],
-  }),
-);
 // dotenv path
 
 dotenv.config({ path: "./.env" });
