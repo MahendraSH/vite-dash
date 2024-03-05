@@ -4,6 +4,6 @@
   "routes": [
     { "src": "/node-app/(.*)", "dest": "/node-app/index.js" },
     { "src": "/api/(.*)", "dest": "/node-app/index.js" },
-    { "src": "/(.*)", "dest": "/react-app/index.html" }
+    { "src": "/(.*)", "dest": "/node-app/dist/index.html" }
   ]
 }
