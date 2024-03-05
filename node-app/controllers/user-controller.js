@@ -1,7 +1,7 @@
 import { AsyncErrorHandler } from "../middlewares/async-error-handler.js";
 import ErrorHandler from "../utils/error-handler.js";
 
-export const loginUser = AsyncErrorHandler((req, res, next) => {
+export const loginUser = AsyncErrorHandler(async (req, res, next) => {
   const user = {
     userName: "demoUser",
     password: "demoUser@123",
@@ -25,28 +25,28 @@ export const loginUser = AsyncErrorHandler((req, res, next) => {
   if (req.body.userName === admin.userName && req.body.password === admin.password) {
     res
       .status(200)
+      .cookie("userId", admin.id, { expires: Date(Date.now() + 2 * 3600 * 1000 * 24), httpOnly: true })
       .json({
         success: true,
-        message: "login successfull ",
+        message: "login successful",
         user: admin,
-      })
-      .cookie(user.id, "userId", { expires: 2 * 3600 * 1000 * 24, httpOnly: true });
+      });
   }
+  console.log(req.body);
   if (req.body.userName !== user.userName || req.body.password !== user.password) {
     next(new ErrorHandler("username or password is worng ", 401));
   }
-
   res
     .status(200)
+    .cookie("userId", user.id, { expires: new Date(Date.now() + 2 * 3600 * 1000 * 24), httpOnly: true })
     .json({
       success: true,
-      message: "login successfull ",
+      message: "login successful",
       user: user,
-    })
-    .cookie(user.id, "userId", { expires: 2 * 3600 * 1000 * 24, httpOnly: true });
+    });
 });
 
-export const getProfileDetails = AsyncErrorHandler((req, res, next) => {
+export const getProfileDetails = AsyncErrorHandler(async (req, res, next) => {
   const user = {
     userName: "demoUser",
     password: "demoUser@123",
@@ -63,7 +63,7 @@ export const getProfileDetails = AsyncErrorHandler((req, res, next) => {
   });
 });
 
-export const getAllUsers = AsyncErrorHandler((req, res, next) => {
+export const getAllUsers = AsyncErrorHandler(async (req, res, next) => {
   const users = [
     {
       userName: "demoUser",
@@ -89,5 +89,14 @@ export const getAllUsers = AsyncErrorHandler((req, res, next) => {
   res.status(200).json({
     success: true,
     users: users,
+  });
+});
+
+export const logoutUser = AsyncErrorHandler(async (req, res, next) => {
+  res.clearCookie("userId");
+  res.status(200).json({
+    user: null,
+    success: true,
+    message: " logout successfull",
   });
 });

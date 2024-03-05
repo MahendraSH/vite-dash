@@ -1,5 +1,5 @@
 import { AsyncErrorHandler } from "../middlewares/async-error-handler.js";
-
+import ErrorHandler from "../utils/error-handler.js";
 export const isUser = AsyncErrorHandler((req, res, next) => {
   const { userId } = req.cookies;
   if (!userId) {
