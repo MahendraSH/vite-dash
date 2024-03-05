@@ -27,11 +27,8 @@ import { strengthColor, strengthIndicator } from "@/utilts/password-color-streng
 // assets
 import { EyeInvisibleOutlined, EyeOutlined } from "@ant-design/icons";
 import toast from "react-hot-toast";
-import { useDispatch } from "react-redux";
-import { signUp } from "@/app/features/userSlice";
 
 const RegisterForm = () => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [level, setLevel] = useState();
   const [showPassword, setShowPassword] = useState(false);
@@ -72,7 +69,7 @@ const RegisterForm = () => {
         onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
           try {
             setStatus({ success: false });
-            dispatch(signUp(values));
+            console.log(values);
             setSubmitting(false);
           } catch (err) {
             console.error(err);
@@ -81,7 +78,7 @@ const RegisterForm = () => {
             setSubmitting(false);
           } finally {
             toast.success("User Registration Successful");
-            navigate("/");
+            navigate("/login");
           }
         }}
       >
@@ -242,7 +239,15 @@ const RegisterForm = () => {
                 </Grid>
               )}
               <Grid item xs={12}>
-                <Button disableElevation disabled={isSubmitting} fullWidth size="large" type="submit" variant="contained" color="primary">
+                <Button
+                  disableElevation
+                  disabled={isSubmitting}
+                  fullWidth
+                  size="large"
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                >
                   Create Account
                 </Button>
               </Grid>

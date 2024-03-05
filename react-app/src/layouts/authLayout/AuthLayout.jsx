@@ -1,22 +1,22 @@
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, Navigate } from "react-router-dom";
 import AuthWrapper from "./auth-components/AuthWrapper";
-import { useSelector } from "react-redux";
-import { useEffect } from "react";
+import { useGetProfileDetailsQuery } from "@/app/features/userApiSlice";
 
 const AuthLayout = () => {
-  const user = useSelector((state) => state.auth.user);
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (user?.email) {
-      navigate("/");
-    }
-  }, [user?.email]);
-  return (
-    <AuthWrapper>
-      <Outlet />
-    </AuthWrapper>
-  );
+  const { isLoading, isError, isSuccess } = useGetProfileDetailsQuery();
+  if (isLoading) {
+    return <></>;
+  }
+  if (isSuccess) {
+    return <Navigate to="/" />;
+  }
+  if (isError) {
+    return (
+      <AuthWrapper>
+        <Outlet />
+      </AuthWrapper>
+    );
+  }
 };
 
 export default AuthLayout;

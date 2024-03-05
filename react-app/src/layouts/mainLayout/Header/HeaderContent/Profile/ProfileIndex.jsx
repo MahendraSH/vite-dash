@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import { useRef, useState } from "react";
-
+import { Navigate } from "react-router-dom";
 // material-ui
 import { useTheme } from "@mui/material/styles";
 import {
@@ -28,13 +28,18 @@ import SettingTab from "./SettingTab";
 // assets
 import avatar1 from "@/assets/images/users/avatar-1.png";
 import { LogoutOutlined, SettingOutlined, UserOutlined } from "@ant-design/icons";
-import { useDispatch } from "react-redux";
-import { logoutUser } from "@/app/features/userSlice";
+import { useLogoutUserMutation } from "@/app/features/userApiSlice";
 
 // tab panel wrapper
 function TabPanel({ children, value, index, ...other }) {
   return (
-    <div role="tabpanel" hidden={value !== index} id={`profile-tabpanel-${index}`} aria-labelledby={`profile-tab-${index}`} {...other}>
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`profile-tabpanel-${index}`}
+      aria-labelledby={`profile-tab-${index}`}
+      {...other}
+    >
       {value === index && children}
     </div>
   );
@@ -56,11 +61,11 @@ function a11yProps(index) {
 // ==============================|| HEADER CONTENT - PROFILE ||============================== //
 
 const Profile = () => {
-  const dispatch = useDispatch();
+  const [LogoutUser, { isError, error, isSuccess }] = useLogoutUserMutation();
   const theme = useTheme();
 
   const handleLogout = async () => {
-    dispatch(logoutUser());
+    LogoutUser();
   };
 
   const anchorRef = useRef(null);
@@ -83,7 +88,9 @@ const Profile = () => {
   };
 
   const iconBackColorOpen = "grey.300";
-
+  if (isSuccess) {
+    return <Navigate to={"/login"} />;
+  }
   return (
     <Box sx={{ flexShrink: 0, ml: 0.75 }}>
       <ButtonBase

@@ -1,29 +1,19 @@
-import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
-import MainLayout from "./layouts/mainLayout/MainLayout";
+import { Navigate, Route, Routes } from "react-router-dom";
 import AuthLayout from "./layouts/authLayout/AuthLayout";
+import MainLayout from "./layouts/mainLayout/MainLayout";
 import Dashboard from "./pages/Dashboard";
+import DemoPage from "./pages/DemoPage";
 import SamplePage from "./pages/SamplePage";
 import LoginPage from "./pages/auth/LoginPage";
 import RegisterPage from "./pages/auth/RegisterPage";
-import DemoPage from "./pages/DemoPage";
-import { useSelector } from "react-redux";
-import { useEffect } from "react";
 import FormEmploy from "./pages/form/FormEmploy";
-import FormStudent from "./pages/form/FormStudent";
 import FormEventRegister from "./pages/form/FormEventRegister";
+import FormStudent from "./pages/form/FormStudent";
 import EmployTable from "./pages/table/EmployTable";
-import StudentTable from "./pages/table/StudentTable";
 import RegisterTable from "./pages/table/RegisterTable";
+import StudentTable from "./pages/table/StudentTable";
 
 const App = () => {
-  const user = useSelector((state) => state.auth.user);
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (!user?.email) {
-      navigate("/login");
-    }
-  }, [user?.email]);
   return (
     <>
       <Routes>

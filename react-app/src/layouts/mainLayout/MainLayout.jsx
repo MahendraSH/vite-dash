@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, Navigate } from "react-router-dom";
 
 // material-ui
 import { Box, Toolbar, useMediaQuery } from "@mui/material";
@@ -10,8 +10,11 @@ import { useDispatch, useSelector } from "react-redux";
 
 import Header from "./Header/MainHeaderIndex";
 import DrawerMainIndex from "./Drawer/DrawerMainIndex";
+import { useGetProfileDetailsQuery } from "@/app/features/userApiSlice";
 
 const MainLayout = () => {
+  const { isLoading, isError, isSuccess } = useGetProfileDetailsQuery();
+
   const theme = useTheme();
   const matchDownLG = useMediaQuery(theme.breakpoints.down("lg"));
   const dispatch = useDispatch();
@@ -43,19 +46,31 @@ const MainLayout = () => {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [matchDownLG]);
-
-  return (
-    <div>
-      <Box sx={{ display: "flex", width: "100%" }}>
-        <Header open={fullOpen} handleDrawerToggle={handleDrawerToggle} />
-        <DrawerMainIndex open={open} handleDrawerToggle={handleDrawerToggle} fullOpen={fullOpen} handleDrawerOnly={handleDrawerOnly} />
-        <Box component="main" sx={{ width: "100%", flexGrow: 1, p: { xs: 2, sm: 3 }, ml: matchDownLG ? 0 : 5 }}>
-          <Toolbar />
-          <Outlet />
+  if (isLoading) {
+    return <></>;
+  }
+  if (isError) {
+    return <Navigate to="/login" />;
+  }
+  if (isSuccess) {
+    return (
+      <div>
+        <Box sx={{ display: "flex", width: "100%" }}>
+          <Header open={fullOpen} handleDrawerToggle={handleDrawerToggle} />
+          <DrawerMainIndex
+            open={open}
+            handleDrawerToggle={handleDrawerToggle}
+            fullOpen={fullOpen}
+            handleDrawerOnly={handleDrawerOnly}
+          />
+          <Box component="main" sx={{ width: "100%", flexGrow: 1, p: { xs: 2, sm: 3 }, ml: matchDownLG ? 0 : 5 }}>
+            <Toolbar />
+            <Outlet />
+          </Box>
         </Box>
-      </Box>
-    </div>
-  );
+      </div>
+    );
+  }
 };
 
 export default MainLayout;

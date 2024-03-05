@@ -1,12 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
 import menuSlice from "./features/menuSlice";
-import userSlice from "./features/userSlice";
+import { userApiSlice } from "./features/userApiSlice";
 
 const store = configureStore({
   reducer: {
     menu: menuSlice,
-    auth: userSlice,
+    [userApiSlice.reducerPath]: userApiSlice.reducer,
   },
+
+  middleware: (gDM) => gDM().concat(userApiSlice.middleware),
 });
 
 export default store;
