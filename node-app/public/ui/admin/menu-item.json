@@ -29,7 +29,7 @@
         "id": "event-register",
         "title": "Event Register Details Form",
         "type": "item",
-        "url": "/event/register"
+        "url": "/form/event"
       }
     ]
   },

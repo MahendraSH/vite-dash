@@ -25,7 +25,7 @@ export const loginUser = AsyncErrorHandler(async (req, res, next) => {
   if (req.body.userName === admin.userName && req.body.password === admin.password) {
     res
       .status(200)
-      .cookie("userId", admin.id, { expires: Date(Date.now() + 2 * 3600 * 1000 * 24), httpOnly: true })
+      .cookie("userId", admin.id, { expires: new Date(Date.now() + 2 * 3600 * 1000 * 24), httpOnly: true })
       .json({
         success: true,
         message: "login successful",

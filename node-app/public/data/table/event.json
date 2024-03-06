@@ -1,123 +1,83 @@
 {
-  "tableHeading": "Student Data",
-  "tableDiscription": "Below is a table containing student information.",
+  "tableHeading": "Event Registration Data",
+  "tableDiscription": "Below is a table containing event registration information.",
   "tableColumns": [
     {
-      "header": "Student ID",
-      "field": "studentId",
+      "header": "Registration ID",
+      "field": "registrationId",
       "type": "number"
     },
     {
-      "header": "First Name",
-      "field": "firstName",
+      "header": "Full Name",
+      "field": "fullName",
       "type": "text"
     },
     {
-      "header": "Last Name",
-      "field": "lastName",
+      "header": "Email",
+      "field": "email",
       "type": "text"
     },
     {
-      "header": "Age",
-      "field": "age",
-      "type": "number"
-    },
-    {
-      "header": "Major",
-      "field": "major",
+      "header": "Phone Number",
+      "field": "phoneNumber",
       "type": "text"
     },
     {
-      "header": "Year",
-      "field": "year",
+      "header": "Event Name",
+      "field": "eventName",
       "type": "text"
+    },
+    {
+      "header": "Registration Date",
+      "field": "registrationDate",
+      "type": "date"
     }
   ],
   "tableData": [
     {
-      "studentId": 1,
-      "firstName": "Emma",
-      "lastName": "Johnson",
-      "age": 21,
-      "major": "Computer Science",
-      "year": "Senior"
+      "registrationId": 1,
+      "fullName": "John Doe",
+      "email": "johndoe@example.com",
+      "phoneNumber": "+1234567890",
+      "eventName": "Tech Conference 2024",
+      "registrationDate": "2024-03-01"
     },
     {
-      "studentId": 2,
-      "firstName": "Liam",
-      "lastName": "Smith",
-      "age": 20,
-      "major": "Engineering",
-      "year": "Junior"
+      "registrationId": 2,
+      "fullName": "Jane Smith",
+      "email": "janesmith@example.com",
+      "phoneNumber": "+1987654321",
+      "eventName": "Marketing Summit",
+      "registrationDate": "2024-02-15"
     },
     {
-      "studentId": 3,
-      "firstName": "Olivia",
-      "lastName": "Brown",
-      "age": 22,
-      "major": "Biology",
-      "year": "Senior"
+      "registrationId": 3,
+      "fullName": "Michael Johnson",
+      "email": "michaeljohnson@example.com",
+      "phoneNumber": "+1122334455",
+      "eventName": "Startup Pitch Competition",
+      "registrationDate": "2024-03-03"
     },
     {
-      "studentId": 4,
-      "firstName": "Noah",
-      "lastName": "Jones",
-      "age": 19,
-      "major": "Psychology",
-      "year": "Sophomore"
+      "registrationId": 4,
+      "fullName": "Emily Brown",
+      "email": "emilybrown@example.com",
+      "phoneNumber": "+1654321890",
+      "eventName": "Networking Mixer",
+      "registrationDate": "2024-02-20"
     },
     {
-      "studentId": 5,
-      "firstName": "Ava",
-      "lastName": "Williams",
-      "age": 20,
-      "major": "English Literature",
-      "year": "Junior"
-    },
-    {
-      "studentId": 6,
-      "firstName": "William",
-      "lastName": "Martinez",
-      "age": 21,
-      "major": "History",
-      "year": "Senior"
-    },
-    {
-      "studentId": 7,
-      "firstName": "Sophia",
-      "lastName": "Garcia",
-      "age": 19,
-      "major": "Mathematics",
-      "year": "Sophomore"
-    },
-    {
-      "studentId": 8,
-      "firstName": "Ethan",
-      "lastName": "Rodriguez",
-      "age": 20,
-      "major": "Physics",
-      "year": "Junior"
-    },
-    {
-      "studentId": 9,
-      "firstName": "Isabella",
-      "lastName": "Hernandez",
-      "age": 22,
-      "major": "Chemistry",
-      "year": "Senior"
-    },
-    {
-      "studentId": 10,
-      "firstName": "Mia",
-      "lastName": "Lopez",
-      "age": 19,
-      "major": "Art",
-      "year": "Sophomore"
+      "registrationId": 5,
+      "fullName": "David Williams",
+      "email": "davidwilliams@example.com",
+      "phoneNumber": "+1432987654",
+      "eventName": "Industry Symposium",
+      "registrationDate": "2024-01-28"
     }
   ],
   "search": {
     "searchText": "",
-    "searchFields": ["firstName", "lastName", "major"],
+    "searchFields": ["fullName", "email", "eventName"],
     "caseSensitive": false
   }
 }
