@@ -32,7 +32,6 @@ export const loginUser = AsyncErrorHandler(async (req, res, next) => {
         user: admin,
       });
   }
-  console.log(req.body);
   if (req.body.userName !== user.userName || req.body.password !== user.password) {
     next(new ErrorHandler("username or password is worng ", 401));
   }

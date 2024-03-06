@@ -1,18 +1,10 @@
 import { Router } from "express";
+import { getAllTable, getTableById } from "../controllers/table-data-controller.js";
+import { isUser } from "../utils/is-user.js";
 
 const router = Router();
 
-router.route("/all").get((req, res) => {
-  const table = [
-    { title: "Employ Detaitls Table", id: 1 },
-    {
-      title: "Student Details  Table ",
-      id: 2,
-    },
-  ];
-  res.status(200).json({
-    tables: table,
-  });
-});
+router.route("/all").get(isUser, getAllTable);
+router.route("/:id").get(isUser, getTableById);
 
 export default router;
