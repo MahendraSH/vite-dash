@@ -4,7 +4,7 @@ import { Box } from "@mui/material";
 import DynamicTable from "@/components/table-components/DynamicTable";
 import { useGetTableDataQuery } from "@/app/features/dataApiSlice";
 import { useParams } from "react-router-dom";
-const EmployTable = () => {
+const TableById = () => {
   const params = useParams();
   const { id } = params;
   console.log(id);
@@ -18,19 +18,17 @@ const EmployTable = () => {
     return (
       <>
         {tableData && (
-          <Box>
-            <TableWrapper tableHeading={tableData.tableHeading} tableDiscription={tableData.tableDiscription}>
-              <DynamicTable
-                tableColumns={tableData.tableColumns}
-                tableData={tableData.tableData}
-                Search={tableData.search}
-              />
-            </TableWrapper>
-          </Box>
+          <TableWrapper tableHeading={tableData.tableHeading} tableDiscription={tableData.tableDiscription}>
+            <DynamicTable
+              tableColumns={tableData.tableColumns}
+              tableData={tableData.tableData}
+              Search={tableData.search}
+            />
+          </TableWrapper>
         )}
       </>
     );
   }
 };
 
-export default EmployTable;
+export default TableById;

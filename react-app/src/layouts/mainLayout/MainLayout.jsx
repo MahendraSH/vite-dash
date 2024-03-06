@@ -65,7 +65,14 @@ const MainLayout = () => {
           />
           <Box component="main" sx={{ width: "100%", flexGrow: 1, p: { xs: 2, sm: 3 }, ml: matchDownLG ? 0 : 5 }}>
             <Toolbar />
-            <Outlet />
+            <Box
+              sx={{
+                display: { xs: "block", lg: "flex" },
+                justifyContent: { xs: "center", lg: fullOpen ? "end" : "center" },
+              }}
+            >
+              <Outlet />
+            </Box>
           </Box>
         </Box>
       </div>

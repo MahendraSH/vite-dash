@@ -6,7 +6,7 @@ import { Box } from "@mui/material";
 import { useGetFormDataQuery } from "@/app/features/dataApiSlice";
 import { useParams } from "react-router-dom";
 
-const EmployeeForm = () => {
+const FormById = () => {
   const params = useParams();
   const { id } = params;
   const { data, isError, isSuccess, error } = useGetFormDataQuery({ id });
@@ -28,4 +28,4 @@ const EmployeeForm = () => {
   }
 };
 
-export default EmployeeForm;
+export default FormById;
