@@ -3,36 +3,29 @@ import React, { useEffect, useState } from "react";
 import DynamicForm from "@/components/form-components/DynamicForms";
 import FormWrapper from "@/components/form-components/FormWarper";
 import { Box } from "@mui/material";
+import { useGetFormDataQuery } from "@/app/features/dataApiSlice";
+import { useParams } from "react-router-dom";
 
 const EmployeeForm = () => {
-  const [formConfig, setFormConfig] = useState(null);
+  const params = useParams();
+  const { id } = params;
+  const { data, isError, isSuccess, error } = useGetFormDataQuery({ id });
+  if (isError) {
+    return <pre>{JSON.stringify(error)}</pre>;
+  }
+  if (isSuccess) {
+    const formConfig = data;
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch("/data/employ.json");
-        if (!response.ok) {
-          throw new Error("Failed to fetch data");
-        }
-        const data = await response.json();
-        setFormConfig(data);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  return (
-    <Box>
-      {formConfig && (
-        <FormWrapper formHeading={formConfig["form-heading"]} formDescription={formConfig["form-description"]}>
-          <DynamicForm formConfig={formConfig} />
-        </FormWrapper>
-      )}
-    </Box>
-  );
+    return (
+      <Box>
+        {formConfig && (
+          <FormWrapper formHeading={formConfig["form-heading"]} formDescription={formConfig["form-description"]}>
+            <DynamicForm formConfig={formConfig} />
+          </FormWrapper>
+        )}
+      </Box>
+    );
+  }
 };
 
 export default EmployeeForm;

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Link as RouterLink, useNavigate } from "react-router-dom";
+import { Navigate, Link as RouterLink, useNavigate } from "react-router-dom";
 
 // material-ui
 import {
@@ -43,10 +43,6 @@ const LoginForm = () => {
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
-
-  if (isError) {
-    toast.error(error?.message || " something when wrong ");
-  }
   return (
     <>
       {isLoading ? (
@@ -68,19 +64,20 @@ const LoginForm = () => {
               password: Yup.string().max(255).required("Password is required"),
             })}
             onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
-              try {
-                setStatus({ success: false });
-                console.log(values);
-                LoginUser(values);
-                setSubmitting(false);
-              } catch (err) {
-                setStatus({ success: false });
-                setErrors({ submit: err.message });
-                setSubmitting(false);
-              } finally {
-                toast.success("Login successful");
-                navigate("/");
-              }
+              LoginUser(values)
+                .unwrap()
+                .then(() => {
+                  toast.success(" Login Successful");
+                  navigate("/");
+                })
+                .catch((err) => {
+                  toast.error(err?.data?.message);
+                  setErrors({ submit: err?.data?.message });
+                  setStatus({ sucess: false });
+                })
+                .finally(() => {
+                  setSubmitting(false);
+                });
             }}
           >
             {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
