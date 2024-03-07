@@ -20,7 +20,6 @@ app.use(cookieParser());
 
 // Serve static files from the 'dist' directory
 const __dirname = path.dirname(new URL(import.meta.url).pathname);
-app.use(Express.static(path.join(__dirname, "dist")));
 app.use(Express.static(path.join(__dirname, "public")));
 
 //  Routes
@@ -37,10 +36,6 @@ app.get("/api", (req, res, next) => {
 
 // middlewares
 app.use(errorController);
-
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "dist", "index.html"));
-});
 
 // console.log(path.dirname)
 
