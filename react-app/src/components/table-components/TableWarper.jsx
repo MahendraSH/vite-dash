@@ -4,15 +4,19 @@ import PropTypes from "prop-types";
 import TableCard from "./TableCard";
 const TableWarper = ({ tableHeading, tableDiscription, children }) => {
   return (
-    <TableCard>
-      <Typography variant="h5" sx={{ mb: 2 }}>
-        {tableHeading}
-      </Typography>
-      <Typography variant="body1" sx={{ mb: 2 }}>
-        {tableDiscription}
-      </Typography>
-      {children}
-    </TableCard>
+    <Grid container direction="column" justifyContent="center" alignItems="center" sx={{ minHeight: "100vh" }}>
+      <Grid item xs={12}>
+        <TableCard>
+          <Typography variant="h5" sx={{ mb: 2 }}>
+            {tableHeading}
+          </Typography>
+          <Typography variant="body1" sx={{ mb: 2 }}>
+            {tableDiscription}
+          </Typography>
+          {children}
+        </TableCard>
+      </Grid>
+    </Grid>
   );
 };
 
