@@ -7,7 +7,6 @@ import { useParams } from "react-router-dom";
 const TableById = () => {
   const params = useParams();
   const { id } = params;
-  console.log(id);
   const { data, isError, isSuccess, error } = useGetTableDataQuery({ id });
   if (isError) {
     return <pre>{JSON.stringify(error)}</pre>;

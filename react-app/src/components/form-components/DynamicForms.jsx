@@ -83,7 +83,7 @@ const DynamicForm = ({ formConfig }) => {
                 {item.type === "select" && (
                   <FormControl fullWidth variant="outlined">
                     <InputLabel>{item.label}</InputLabel>
-                    <Select value={values[item.name]} onChange={handleChange} label={item.label} name={item.name}>
+                    <Select value={values[item.name] || ""} onChange={handleChange} label={item.label} name={item.name}>
                       {item.options.map((option, index) => (
                         <MenuItem key={index} value={option}>
                           {option}
@@ -109,10 +109,12 @@ const DynamicForm = ({ formConfig }) => {
                         control={
                           <Checkbox
                             name={item.name}
-                            checked={values[item.name].includes(option)}
+                            checked={values[item.name]?.includes(option) || false}
                             onChange={(e) => {
                               const checked = e.target.checked;
-                              const newValue = checked ? [...values[item.name], option] : values[item.name].filter((val) => val !== option);
+                              const newValue = checked
+                                ? [...values[item.name], option]
+                                : values[item.name].filter((val) => val !== option);
                               handleChange({
                                 target: {
                                   name: item.name,

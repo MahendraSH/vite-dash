@@ -27,10 +27,7 @@ app.use("/api/user", userRoutes);
 app.use("/api/data/form", fromDataRoutes);
 app.use("/api/data/table", dataTableRoutes);
 app.use("/api/ui", uiRoutes);
-app.get("/api/*", (req, res, next) => {
-  next(new ErrorHandler(" Route not Found", 404));
-});
-app.get("/api", (req, res, next) => {
+app.get("*", (req, res, next) => {
   next(new ErrorHandler(" Route not Found", 404));
 });
 
