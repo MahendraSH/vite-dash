@@ -2,9 +2,9 @@ import { Schema, model } from "mongoose";
 
 const tableSchema = new Schema(
   {
-    user: {
+    form: {
       type: Schema.Types.ObjectId,
-      ref: "User",
+      ref: "Form",
       required: true,
     },
     tableHeading: {
@@ -15,31 +15,11 @@ const tableSchema = new Schema(
       type: String,
       required: true,
     },
-    tableColumns: [
-      {
-        header: {
-          type: String,
-          required: true,
-        },
-        field: {
-          type: String,
-          required: true,
-        },
-        type: {
-          type: String,
-          enum: ["text", "number", "date"],
-        },
-      },
-    ],
     tableData: {
-      type: String,
-      required: true,
+      type: [String]
     }, // Storing tableData as a JSON string
     search: {
-      searchText: {
-        type: String,
-        default: "",
-      },
+
       searchFields: [String],
       caseSensitive: {
         type: Boolean,
@@ -47,7 +27,6 @@ const tableSchema = new Schema(
       },
     },
   },
-  { timestamps: true }
 );
 
 export default model("Table", tableSchema);

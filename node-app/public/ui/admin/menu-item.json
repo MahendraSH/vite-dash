@@ -13,23 +13,16 @@
     "icon": "FormOutlined",
     "children": [
       {
-        "id": "employ-form",
-        "title": "Employ Details Form",
+        "id": "create-form",
+        "title": "Create Form",
         "type": "item",
-        "url": "/form/employ",
-        "isActive": false
+        "url": "/create-form"
       },
       {
-        "id": "student-form",
-        "title": "Student Details Form",
+        "id": "get-all-fomrs",
+        "title": "All Forms",
         "type": "item",
-        "url": "/form/student"
-      },
-      {
-        "id": "event-register",
-        "title": "Event Register Details Form",
-        "type": "item",
-        "url": "/form/event"
+        "url": "/form/all"
       }
     ]
   },
@@ -76,15 +69,13 @@
         "id": "pie-charts",
         "title": "Pie Charts",
         "type": "item",
-        "url": "/pie-charts",
-        "isActive": false
+        "url": "/pie-charts"
       },
       {
         "id": "line-charts",
         "title": "Line Charts",
         "type": "item",
-        "url": "/line-charts",
-        "isActive": false
+        "url": "/line-charts"
       },
       {
         "id": "bar-charts",
@@ -104,15 +95,13 @@
         "id": "login",
         "title": "Login",
         "type": "item",
-        "url": "/login",
-        "isActive": false
+        "url": "/login"
       },
       {
         "id": "register",
         "title": "Register",
         "type": "item",
-        "url": "/register",
-        "isActive": false
+        "url": "/register"
       }
     ]
   },
@@ -132,15 +121,13 @@
         "id": "color",
         "title": "Color",
         "type": "item",
-        "url": "/color",
-        "isActive": false
+        "url": "/color"
       },
       {
         "id": "shadow",
         "title": "Shadow",
         "type": "item",
-        "url": "/shadow",
-        "isActive": false
+        "url": "/shadow"
       },
       {
         "id": "ant-icons",

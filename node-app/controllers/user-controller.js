@@ -1,95 +1,182 @@
-import { AsyncErrorHandler } from "../middlewares/async-error-handler.js";
 import ErrorHandler from "../utils/error-handler.js";
-const user = {
-  userName: "demoUser",
-  password: "demoUser@123",
-  role: "user",
-  profileDiscription: "MBBS Doctor",
-  firstName: "user",
-  lastName: "demo",
-  eamil: "demouser@gmail.com",
-  id: "xyzuser",
-};
-const admin = {
-  userName: "demoAdmin",
-  password: "demoAdmin@123",
-  role: "admin",
-  profileDiscription: "MD Doctor",
-  firstName: "Admin",
-  lastName: "demo",
-  eamil: "demoadmin@gmail.com",
-  id: "xyzadmin",
-};
-export const loginUser = AsyncErrorHandler(async (req, res, next) => {
+import { AsyncErrorHandler } from "../middlewares/async-error-handler.js";
+import User from "../models/user-models.js";
+import jwtCookie from "../utils/jwt-cookie-maker.js";
 
-  if (req.body.userName === admin.userName && req.body.password === admin.password) {
-    res
-      .status(200)
-      .cookie("userId", admin.id, { expires: new Date(Date.now() + 2 * 3600 * 1000 * 24), httpOnly: true })
-      .json({
-        success: true,
-        message: "login successful",
-        user: admin,
-      });
+export const loginUser = AsyncErrorHandler(async (req, res, next) => {
+  const { email, password } = req.body;
+  if (!email || !password) {
+    return next(new ErrorHandler("Please enter email and password", 400));
   }
-  if (req.body.userName !== user.userName || req.body.password !== user.password) {
-    next(new ErrorHandler("username or password is worng ", 401));
+  const user = await User.findOne({ email }).select("+password");
+  if (!user) {
+    return next(new ErrorHandler("Invalid email or password", 401));
   }
-  res
-    .status(200)
-    .cookie("userId", user.id, { expires: new Date(Date.now() + 2 * 3600 * 1000 * 24), httpOnly: true })
-    .json({
-      success: true,
-      message: "login successful",
-      user: user,
-    });
+  const isPasswordMatched = await user.comparePassword(password);
+  if (!isPasswordMatched) {
+    return next(new ErrorHandler("Invalid email or password", 401));
+  }
+  jwtCookie(res, 200, user);
 });
 
-export const getProfileDetails = AsyncErrorHandler(async (req, res, next) => {
-
-
-
-  res.status(200).json({
-    success: true,
-    user: req.user.role === "admin" ? admin : user,
+export const registerUser = AsyncErrorHandler(async (req, res, next) => {
+  const { firstName, lastName, email, companyName, password } = req.body;
+  const user = await User.create({
+    firstName,
+    lastName,
+    email,
+    companyName,
+    password,
   });
-
+  jwtCookie(res, 201, user);
 });
 
 export const getAllUsers = AsyncErrorHandler(async (req, res, next) => {
-  const users = [
-    {
-      userName: "demoUser",
-      password: "demoUser@123",
-      role: "user",
-      profileDiscription: "MBBS Doctor",
-      firstName: "user",
-      lastName: "demo",
-      eamil: "demouser@gmail.com",
-      id: "xyzuser",
-    },
-    {
-      userName: "demoAdmin",
-      password: "demoAdmin@123",
-      role: "admin",
-      profileDiscription: "MD Doctor",
-      firstName: "Admin",
-      lastName: "demo",
-      eamil: "demoadmin@gmail.com",
-      id: "xyzadmin",
-    },
-  ];
+  const users = await User.find();
   res.status(200).json({
     success: true,
-    users: users,
+    users,
+  });
+});
+
+export const getUserById = AsyncErrorHandler(async (req, res, next) => {
+  const { id } = req.params;
+  const user = await User.findById(id);
+  if (!user) {
+    return next(new ErrorHandler("User not found", 404));
+  }
+  res.status(200).json({
+    success: true,
+    user,
+  });
+});
+
+export const getProfileDetails = AsyncErrorHandler(async (req, res, next) => {
+  const user = await User.findById(req.user.id);
+  if (!user) {
+    return next(new ErrorHandler("User not found", 404));
+  }
+  res.status(200).json({
+    success: true,
+    user,
+  });
+});
+
+export const updateUserProfileDetails = AsyncErrorHandler(async (req, res, next) => {
+  const user = await User.findById(req.user.id);
+  if (!user) {
+    return next(new ErrorHandler("User not found", 404));
+  }
+  const { email, firstName, lastName, companyName } = req.body;
+  user.email = email;
+  user.firstName = firstName;
+  user.lastName = lastName;
+  user.companyName = companyName;
+  await user.save();
+  res.status(201).json({
+    success: true,
+    message: "User details updated successfully",
+    user,
+  });
+});
+
+export const updateUserInfoById = AsyncErrorHandler(async (req, res, next) => {
+  const { id } = req.params;
+  const user = await User.findById(id);
+  if (!user) {
+    return next(new ErrorHandler("User not found", 404));
+  }
+  const { email, firstName, lastName, companyName } = req.body;
+  user.email = email;
+  user.firstName = firstName;
+  user.lastName = lastName;
+  user.companyName = companyName;
+  await user.save();
+  res.status(201).json({
+    success: true,
+    message: "User details updated successfully",
+    user,
+  });
+});
+
+export const updateUserProfileImage = AsyncErrorHandler(async (req, res, next) => {
+  const user = await User.findById(req.user.id);
+  if (!user) {
+    return next(new ErrorHandler("User not found", 404));
+  }
+  // Handle image upload logic here if needed
+  // Update user's avatar field accordingly
+  // Save the user document
+  res.status(200).json({
+    success: false,
+    message: "Update profile image functionality not implemented",
+  });
+});
+
+export const deleteUserAccount = AsyncErrorHandler(async (req, res, next) => {
+  const user = await User.findById(req.user.id);
+  if (!user) {
+    return next(new ErrorHandler("User not found", 404));
+  }
+  await user.deleteOne();
+  res.clearCookie("loginToken");
+  res.status(200).json({
+    success: true,
+    message: "User account deleted successfully",
+  });
+});
+
+export const deleteUserById = AsyncErrorHandler(async (req, res, next) => {
+  const { id } = req.params;
+  const user = await User.findById(id);
+  if (!user) {
+    return next(new ErrorHandler("User not found", 404));
+  }
+  await user.deleteOne();
+  res.status(200).json({
+    success: true,
+    message: "User account deleted successfully",
   });
 });
 
 export const logoutUser = AsyncErrorHandler(async (req, res, next) => {
-  res.clearCookie("userId");
+  res.clearCookie("loginToken");
   res.status(200).json({
-    user: null,
     success: true,
-    message: " logout successfull",
+    message: "Logout successful",
+  });
+});
+
+export const updatePassword = AsyncErrorHandler(async (req, res, next) => {
+  const { oldPassword, newPassword } = req.body;
+  const user = await User.findById(req.user.id).select("+password");
+  if (!user) {
+    return next(new ErrorHandler("User not found", 404));
+  }
+  const isPasswordMatched = await user.comparePassword(oldPassword);
+  if (!isPasswordMatched) {
+    return next(new ErrorHandler("Invalid old password", 401));
+  }
+  user.password = newPassword;
+  await user.save();
+  res.status(201).json({
+    success: true,
+    message: "Password updated successfully",
+  });
+});
+
+export const updateUserRole = AsyncErrorHandler(async (req, res, next) => {
+  const { id } = req.params;
+  const { role } = req.body;
+  const user = await User.findById(id);
+  if (!user) {
+    return next(new ErrorHandler("User not found", 404));
+  }
+  user.role = role;
+  await user.save();
+  res.status(201).json({
+    success: true,
+    message: "User role updated successfully",
+    user,
   });
 });

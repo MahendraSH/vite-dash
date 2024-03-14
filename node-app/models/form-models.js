@@ -20,6 +20,7 @@ const formSchema = new Schema(
         label: {
           type: String,
           required: true,
+          
         },
         type: {
           type: String,
@@ -31,7 +32,7 @@ const formSchema = new Schema(
           required: true,
         },
         options: [String], // Only required for types "radio", "select", and "checkbox"
-      },
+      },  
     ],
   },
   { timestamps: true }

@@ -1,10 +1,10 @@
 import { Router } from "express";
-import { getAllTable, getTableById } from "../controllers/table-data-controller.js";
+import { configureTable, getTableById, deleteTableById } from "../controllers/table-data-controller.js";
 import { isUser } from "../utils/is-user.js";
 
 const router = Router();
 
-router.route("/all").get(isUser, getAllTable);
-router.route("/:id").get(isUser, getTableById);
+router.route("/").post(isUser, configureTable);
+router.route("/:id").get(isUser, getTableById).delete(isUser , deleteTableById)
 
 export default router;

@@ -4,7 +4,7 @@ import { Schema, model } from "mongoose";
 import validator from "validator";
 
 // Define an enum for privileges
-const PrivilegeEnum = {
+export const PrivilegeEnum = {
   CREATE: "create",
   READ: "read",
   UPDATE: "update",
@@ -12,7 +12,7 @@ const PrivilegeEnum = {
 };
 
 // Define privileges for different roles
-const RolePrivileges = {
+export const RolePrivileges = {
   user: [PrivilegeEnum.READ],
   admin: [PrivilegeEnum.CREATE, PrivilegeEnum.READ, PrivilegeEnum.UPDATE, PrivilegeEnum.DELETE],
   superAdmin: [PrivilegeEnum.CREATE, PrivilegeEnum.READ, PrivilegeEnum.UPDATE, PrivilegeEnum.DELETE],
@@ -21,17 +21,26 @@ const RolePrivileges = {
 
 const userSchema = new Schema(
   {
-    userName: {
+    firstName: {
       type: String,
-      required: [true, "Please enter your name."],
+      required: [true, "Please enter your first name."],
       trim: true,
-      minLength: [3, "Name must be at least 3 characters long."],
+    },
+    lastName: {
+      type: String,
+      required: [true, "Please enter your last name."],
+      trim: true,
     },
     email: {
       type: String,
       required: [true, "Please enter your email."],
       unique: true,
       validate: [validator.isEmail, "Please enter a valid email address."],
+    },
+    companyName: {
+      type: String,
+      required: [true, "Please enter your company name."],
+      trim: true,
     },
     password: {
       type: String,
