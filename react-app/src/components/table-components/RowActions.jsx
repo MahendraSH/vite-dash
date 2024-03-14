@@ -1,13 +1,13 @@
-import * as React from "react";
-import { styled, alpha } from "@mui/material/styles";
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
 import EditIcon from "@mui/icons-material/Edit";
-import FileCopyIcon from "@mui/icons-material/FileCopy";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import IconButton from "@mui/material/IconButton";
-import { DeleteOutlined } from "@mui/icons-material";
-
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import { alpha, styled } from "@mui/material/styles";
+import PropTypes from "prop-types";
+import * as React from "react";
+import { useNavigate } from "react-router-dom";
+import AlertDialog from "./AlertDelete";
 const StyledMenu = styled((props) => (
   <Menu
     elevation={0}
@@ -45,7 +45,8 @@ const StyledMenu = styled((props) => (
   },
 }));
 
-export default function RowActions() {
+export default function RowActions({ editLink, isFormTable = false, id }) {
+  const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -53,6 +54,13 @@ export default function RowActions() {
   };
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handOnClickEdit = () => {
+    if (editLink) {
+      navigate(editLink);
+    }
+    handleClose();
   };
 
   return (
@@ -77,19 +85,20 @@ export default function RowActions() {
         open={open}
         onClose={handleClose}
       >
-        <MenuItem onClick={handleClose} disableRipple>
+        <MenuItem onClick={handOnClickEdit} disableRipple>
           <EditIcon />
           Edit
         </MenuItem>
-        <MenuItem onClick={handleClose} disableRipple>
-          <FileCopyIcon />
-          Copy
-        </MenuItem>
-        <MenuItem onClick={handleClose} disableRipple>
-          <DeleteOutlined />
-          Delete
+        <MenuItem disableRipple>
+          <AlertDialog isFormTable={isFormTable} handleClose={handleClose} id={id} />
         </MenuItem>
       </StyledMenu>
     </div>
   );
 }
+
+RowActions.protoTypes = {
+  editLink: PropTypes.string,
+  isFormTable: PropTypes.bool,
+  id: PropTypes.string.isRequired,
+};

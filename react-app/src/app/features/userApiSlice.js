@@ -11,7 +11,7 @@ export const userApiSlice = createApi({
   reducerPath: "userApiSlice",
   tagTypes: ["user"],
   endpoints: (build) => ({
-    // get prpfile details query
+    // get profile details query
     getProfileDetails: build.query({
       query: () => ({
         url: "/me",
@@ -20,15 +20,13 @@ export const userApiSlice = createApi({
     }),
     // login user mutation
     loginUser: build.mutation({
-      query: ({ userName, password }) => ({
+      query: ({ email, password }) => ({
         url: "/login",
         method: "POST",
-        body: { userName, password },
+        body: { email, password },
       }),
       invalidatesTags: ["user"],
     }),
-    // user Register
-
     // user logout
     logoutUser: build.mutation({
       query: () => ({
@@ -37,7 +35,34 @@ export const userApiSlice = createApi({
       }),
       invalidatesTags: ["user"],
     }),
+    // user registration
+    registerUser: build.mutation({
+      query: ({ firstName, lastName, email, password, companyName }) => ({
+        url: "/signup",
+        method: "POST",
+        body: { firstName, lastName, email, password, companyName },
+      }),
+      invalidatesTags: ["user"],
+    }),
+    // update user role
+    updateUserRole: build.mutation({
+      query: ({ id, role }) => ({
+        url: `/update-role/${id}`,
+        method: "PUT",
+        body: { role },
+      }),
+      invalidatesTags: ["user"],
+    }),
+    // update user password
+    updatePassword: build.mutation({
+      query: ({ oldPassword, newPassword }) => ({
+        url: "/update-password",
+        method: "PUT",
+        body: { oldPassword, newPassword },
+      }),
+      invalidatesTags: ["user"],
+    }),
   }),
 });
 
-export const { useLogoutUserMutation, useGetProfileDetailsQuery, useLoginUserMutation } = userApiSlice;
+export const { useLogoutUserMutation, useGetProfileDetailsQuery, useLoginUserMutation, useRegisterUserMutation, useUpdateUserRoleMutation, useUpdatePasswordMutation } = userApiSlice;
