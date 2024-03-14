@@ -8,8 +8,8 @@ import LoginPage from "@/pages/auth/LoginPage";
 import RegisterPage from "@/pages/auth/RegisterPage";
 import TableById from "@/pages/TableById";
 import FormById from "@/pages/FormById";
-import FormMakerUpdater from "./pages/CreateUpdateFrom";
 import GetAllForms from "./pages/GetAllForms";
+import CreateFrom from "./pages/CreateFrom";
 
 const App = () => {
   return (
@@ -21,7 +21,7 @@ const App = () => {
           <Route path="/form/all" element={<GetAllForms />} />
           <Route path="/form/:id" element={<FormById />} />
           <Route path="table/:id" element={<TableById />} />
-          <Route path="/create-form" element={<FormMakerUpdater />} />
+          <Route path="/create-form" element={<CreateFrom />} />
 
           <Route path="sample-page" element={<SamplePage />} />
           <Route path="*" element={<DemoPage />} />
