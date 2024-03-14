@@ -8,6 +8,8 @@ import LoginPage from "@/pages/auth/LoginPage";
 import RegisterPage from "@/pages/auth/RegisterPage";
 import TableById from "@/pages/TableById";
 import FormById from "@/pages/FormById";
+import GetAllForms from "./pages/GetAllForms";
+import CreateFrom from "./pages/CreateFrom";
 
 const App = () => {
   return (
@@ -16,8 +18,10 @@ const App = () => {
         <Route element={<MainLayout />}>
           <Route index element={<Navigate to={"/dash"} replace />} />
           <Route path="dash" element={<Dashboard />} />
+          <Route path="/form/all" element={<GetAllForms />} />
           <Route path="/form/:id" element={<FormById />} />
           <Route path="table/:id" element={<TableById />} />
+          <Route path="/create-form" element={<CreateFrom />} />
 
           <Route path="sample-page" element={<SamplePage />} />
           <Route path="*" element={<DemoPage />} />

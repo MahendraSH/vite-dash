@@ -1,7 +1,12 @@
-import * as React from "react";
-import PropTypes from "prop-types";
-import { useTheme } from "@mui/material/styles";
+import { LinkOutlined } from "@mui/icons-material";
+import FirstPageIcon from "@mui/icons-material/FirstPage";
+import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
+import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
+import LastPageIcon from "@mui/icons-material/LastPage";
+import { TableHead } from "@mui/material";
 import Box from "@mui/material/Box";
+import IconButton from "@mui/material/IconButton";
+import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -9,17 +14,13 @@ import TableContainer from "@mui/material/TableContainer";
 import TableFooter from "@mui/material/TableFooter";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import IconButton from "@mui/material/IconButton";
-import FirstPageIcon from "@mui/icons-material/FirstPage";
-import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
-import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
-import LastPageIcon from "@mui/icons-material/LastPage";
-import { TableHead, Typography } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
+import PropTypes from "prop-types";
+import * as React from "react";
+import { Link } from "react-router-dom";
+import RowActions from "./RowActions";
 import SearchAccToIndex from "./SearchAccToIndex";
 import SearchIndexSelectForm from "./SearchIndexSelect";
-import RowActions from "./RowActions";
-
 function TablePaginationActions(props) {
   const theme = useTheme();
   const { count, page, rowsPerPage, onPageChange } = props;
@@ -48,10 +49,18 @@ function TablePaginationActions(props) {
       <IconButton onClick={handleBackButtonClick} disabled={page === 0} aria-label="previous page">
         {theme.direction === "rtl" ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
       </IconButton>
-      <IconButton onClick={handleNextButtonClick} disabled={page >= Math.ceil(count / rowsPerPage) - 1} aria-label="next page">
+      <IconButton
+        onClick={handleNextButtonClick}
+        disabled={page >= Math.ceil(count / rowsPerPage) - 1}
+        aria-label="next page"
+      >
         {theme.direction === "rtl" ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
       </IconButton>
-      <IconButton onClick={handleLastPageButtonClick} disabled={page >= Math.ceil(count / rowsPerPage) - 1} aria-label="last page">
+      <IconButton
+        onClick={handleLastPageButtonClick}
+        disabled={page >= Math.ceil(count / rowsPerPage) - 1}
+        aria-label="last page"
+      >
         {theme.direction === "rtl" ? <FirstPageIcon /> : <LastPageIcon />}
       </IconButton>
     </Box>
@@ -65,7 +74,7 @@ TablePaginationActions.propTypes = {
   rowsPerPage: PropTypes.number.isRequired,
 };
 
-export default function DynamicTable({ tableColumns, tableData, Search }) {
+export default function DynamicTable({ tableColumns, tableData, Search, isFormTable = false }) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [search, setSearch] = React.useState("");
@@ -88,9 +97,20 @@ export default function DynamicTable({ tableColumns, tableData, Search }) {
 
   return (
     <TableContainer component={Paper}>
-      <Box display={"flex"} flexDirection={{ xs: "column", md: "row" }} gap={4} justifyContent={"space-between"} px={4} py={2}>
+      <Box
+        display={"flex"}
+        flexDirection={{ xs: "column", md: "row" }}
+        gap={4}
+        justifyContent={"space-between"}
+        px={4}
+        py={2}
+      >
         <SearchAccToIndex search={search} setSearch={setSearch} />
-        <SearchIndexSelectForm searchFields={Search.searchFields} selectIndex={selectIndex} setSelectIndex={setSelectIndex} />
+        <SearchIndexSelectForm
+          searchFields={Search.searchFields}
+          selectIndex={selectIndex}
+          setSelectIndex={setSelectIndex}
+        />
       </Box>
       <Table>
         <TableHead>
@@ -104,18 +124,52 @@ export default function DynamicTable({ tableColumns, tableData, Search }) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, index) => (
-            <TableRow key={index} sx={{}}>
-              {tableColumns.map((column, columnIndex) => (
-                <TableCell key={columnIndex} align="right" sx={{ px: { xs: 2, md: 3, lg: 4 }, py: 2 }}>
-                  {row[column.field]}
+          <>
+            {data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, index) => (
+              <TableRow key={index} sx={{}}>
+                {tableColumns.map((column, columnIndex) => (
+                  <TableCell key={columnIndex} align="right" sx={{ px: { xs: 2, md: 3, lg: 4 }, py: 2 }}>
+                    {column.type === "date" ? new Date(row[column.field]).toDateString() : ""}
+                    {column.type === "number" || column.type == "input-number"
+                      ? new Intl.NumberFormat("en-IN").format(row[column.field])
+                      : ""}
+                    {column.type === "input-text" ||
+                    column.type === "text" ||
+                    column.type === "email" ||
+                    column.type === "password" ||
+                    column.type === "tel" ||
+                    column.type === "url" ||
+                    column.type === "search" ||
+                    column.type === "time" ||
+                    column.type === "datetime-local"
+                      ? row[column.field]
+                      : ""}
+                    {column.type === "boolean" ? (row[column.field] ? "Yes" : "No") : ""}
+                    {column.type === "object" ? JSON.stringify(row[column.field]) : ""}
+                    {column.type === "array" ? JSON.stringify(row[column.field]) : ""}
+                    {column.type === "null" ? "Null" : ""}
+                    {column.type === "link" ? (
+                      <Link to={row["link"]}>
+                        <IconButton>
+                          {" "}
+                          <LinkOutlined />{" "}
+                        </IconButton>
+                      </Link>
+                    ) : (
+                      ""
+                    )}
+                  </TableCell>
+                ))}
+                <TableCell align="right" sx={{ px: { xs: 2, md: 3, lg: 4 }, py: 2 }}>
+                  <RowActions
+                    editLink={isFormTable ? "/form/edit/" + row["_id"] : "/table/edit/" + index}
+                    isFormTable={isFormTable}
+                    id={row["_id"]}
+                  />
                 </TableCell>
-              ))}
-              <TableCell align="right" sx={{ px: { xs: 2, md: 3, lg: 4 }, py: 2 }}>
-                <RowActions />
-              </TableCell>
-            </TableRow>
-          ))}
+              </TableRow>
+            ))}
+          </>
           {emptyRows > 0 && (
             <TableRow style={{ height: 53 * emptyRows }}>
               <TableCell colSpan={tableColumns.length} />
@@ -158,4 +212,5 @@ DynamicTable.propTypes = {
   ).isRequired,
   tableData: PropTypes.arrayOf(PropTypes.object).isRequired,
   Search: PropTypes.object.isRequired,
+  isFormTable: PropTypes.bool,
 };

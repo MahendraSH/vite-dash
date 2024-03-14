@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from "react";
-
+import { useGetFormDataQuery } from "@/app/features/dataApiSlice";
 import DynamicForm from "@/components/form-components/DynamicForms";
 import FormWrapper from "@/components/form-components/FormWarper";
 import { Box } from "@mui/material";
-import { useGetFormDataQuery } from "@/app/features/dataApiSlice";
 import { useParams } from "react-router-dom";
 
 const FormById = () => {
@@ -14,12 +12,12 @@ const FormById = () => {
     return <pre>{JSON.stringify(error)}</pre>;
   }
   if (isSuccess) {
-    const formConfig = data;
-
+    const formConfig = data?.form;
+    console.log(formConfig);
     return (
       <Box>
         {formConfig && (
-          <FormWrapper formHeading={formConfig["form-heading"]} formDescription={formConfig["form-description"]}>
+          <FormWrapper formHeading={formConfig["heading"]} formDescription={formConfig["description"]}>
             <DynamicForm formConfig={formConfig} />
           </FormWrapper>
         )}

@@ -1,7 +1,5 @@
-import React, { useEffect } from "react";
-import { Navigate, Link as RouterLink, useNavigate } from "react-router-dom";
-
-// material-ui
+import React from "react";
+import { Link as RouterLink, useNavigate } from "react-router-dom";
 import {
   Button,
   Checkbox,
@@ -16,33 +14,27 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-
 import { Formik } from "formik";
 import * as Yup from "yup";
-
-import { EyeInvisibleOutlined, EyeOutlined } from "@ant-design/icons";
-import toast from "react-hot-toast";
 import { useLoginUserMutation } from "@/app/features/userApiSlice";
+import { EyeInvisibleOutlined, EyeOutlined } from "@ant-design/icons";
 import Skeleton from "@mui/material/Skeleton";
-const LoginForm = () => {
-  const navigate = useNavigate();
-  const [LoginUser, { isLoading, isError, isSuccess, error }] = useLoginUserMutation();
-  const [checked, setChecked] = React.useState(false);
+import toast from "react-hot-toast";
 
-  useEffect(() => {
-    if (isSuccess) {
-      toast.success(" Login Successful");
-      navigate("/");
-    }
-  }, [isSuccess]);
+  const LoginForm = () => {
+    const navigate = useNavigate();
+  const [LoginUser, { isLoading }] = useLoginUserMutation();
+  const [checked, setChecked] = React.useState(false);
   const [showPassword, setShowPassword] = React.useState(false);
+
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
-  };
+  };  
 
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
+
   return (
     <>
       {isLoading ? (
@@ -54,30 +46,27 @@ const LoginForm = () => {
         </>
       ) : (
         <>
-          <Formik
+          <Formik 
             initialValues={{
-              userName: "",
+              email: "",
               password: "",
             }}
             validationSchema={Yup.object().shape({
-              userName: Yup.string().max(255).required("User Name  is required"),
-              password: Yup.string().max(255).required("Password is required"),
+              email: Yup.string().email("Invalid email").required("Email is required"),
+              password: Yup.string().required("Password is required"),
             })}
             onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
-              LoginUser(values)
-                .unwrap()
-                .then(() => {
-                  toast.success(" Login Successful");
-                  navigate("/");
-                })
-                .catch((err) => {
-                  toast.error(err?.data?.message);
-                  setErrors({ submit: err?.data?.message });
-                  setStatus({ sucess: false });
-                })
-                .finally(() => {
-                  setSubmitting(false);
-                });
+              try {
+                await LoginUser(values).unwrap();
+                toast.success("Login Successful");
+                navigate("/");
+              } catch (err) {
+                toast.error(err?.data?.message || "Login failed");
+                setErrors({ submit: err?.data?.message || "Login failed" });
+                setStatus({ success: false });
+              } finally {
+                setSubmitting(false);
+              }
             }}
           >
             {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
@@ -85,21 +74,21 @@ const LoginForm = () => {
                 <Grid container spacing={3}>
                   <Grid item xs={12}>
                     <Stack spacing={1}>
-                      <InputLabel htmlFor="email-login"> User Name </InputLabel>
+                      <InputLabel htmlFor="email-login">Email</InputLabel>
                       <OutlinedInput
                         id="email-login"
-                        type="text"
-                        value={values.userName}
-                        name="userName"
+                        type="email"
+                        value={values.email}
+                        name="email"
                         onBlur={handleBlur}
                         onChange={handleChange}
-                        placeholder="Enter user name "
+                        placeholder="Enter email"
                         fullWidth
                         error={Boolean(touched.email && errors.email)}
                       />
-                      {touched.userName && errors.userName && (
+                      {touched.email && errors.email && (
                         <FormHelperText error id="standard-weight-helper-text-email-login">
-                          {errors.userName}
+                          {errors.email}
                         </FormHelperText>
                       )}
                     </Stack>
@@ -110,7 +99,7 @@ const LoginForm = () => {
                       <OutlinedInput
                         fullWidth
                         error={Boolean(touched.password && errors.password)}
-                        id="-password-login"
+                        id="password-login"
                         type={showPassword ? "text" : "password"}
                         value={values.password}
                         name="password"
@@ -138,7 +127,6 @@ const LoginForm = () => {
                       )}
                     </Stack>
                   </Grid>
-
                   <Grid item xs={12} sx={{ mt: -1 }}>
                     <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={2}>
                       <FormControlLabel
@@ -151,7 +139,7 @@ const LoginForm = () => {
                             size="small"
                           />
                         }
-                        label={<Typography variant="h6">Keep me sign in</Typography>}
+                        label={<Typography variant="h6">Keep me signed in</Typography>}
                       />
                       <Link variant="h6" component={RouterLink} to="" color="text.primary">
                         Forgot Password?

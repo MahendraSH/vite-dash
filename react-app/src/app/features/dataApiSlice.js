@@ -23,7 +23,41 @@ export const dataApiSlice = createApi({
       }),
       providesTags: ["data", "table"],
     }),
+    // create form
+    createForm: build.mutation({
+      query: (formData) => ({
+        url: "/form",
+        method: "POST",
+        body: formData,
+      }),
+      invalidatesTags: ["form"],
+    }),
+    // get all forms
+    getForms: build.query({
+      query: () => ({
+        url: "/form/all",
+        method: "GET",
+      }),
+      providesTags: ["form"],
+    }),
+    // update form by ID
+    updateFormById: build.mutation({
+      query: ({ id, formData }) => ({
+        url: `/form/${id}`,
+        method: "PUT",
+        body: formData,
+      }),
+      invalidatesTags: ["form"],
+    }),
+    // delete form by ID
+    deleteFormById: build.mutation({
+      query: ({ id }) => ({
+        url: `/form/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["form"],
+    }),
   }),
 });
 
-export const { useGetTableDataQuery, useGetFormDataQuery } = dataApiSlice;
+export const { useGetTableDataQuery, useGetFormsQuery, useGetFormDataQuery, useCreateFormMutation, useUpdateFormByIdMutation, useDeleteFormByIdMutation } = dataApiSlice;

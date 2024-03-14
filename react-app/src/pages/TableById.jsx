@@ -1,8 +1,6 @@
-import React, { useState, useEffect } from "react";
-import TableWrapper from "@/components/table-components/TableWarper";
-import { Box } from "@mui/material";
-import DynamicTable from "@/components/table-components/DynamicTable";
 import { useGetTableDataQuery } from "@/app/features/dataApiSlice";
+import DynamicTable from "@/components/table-components/DynamicTable";
+import TableWrapper from "@/components/table-components/TableWarper";
 import { useParams } from "react-router-dom";
 const TableById = () => {
   const params = useParams();

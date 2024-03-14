@@ -1,9 +1,8 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { Formik } from "formik";
+import { useTheme } from "@emotion/react";
 import {
   Button,
   Checkbox,
+  FormControl,
   FormControlLabel,
   Grid,
   InputLabel,
@@ -14,20 +13,20 @@ import {
   Select,
   Stack,
   TextField,
-  FormControl,
   useMediaQuery,
 } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { useTheme } from "@emotion/react";
+import { Formik } from "formik";
+import PropTypes from "prop-types";
 
 const DynamicForm = ({ formConfig }) => {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(() => theme.breakpoints.down("sm"));
 
   const initialValues = {};
-  const formItems = formConfig["form-items"];
+  const formItems = formConfig["items"];
 
   formItems.forEach((item) => {
     initialValues[item.name] = "";
@@ -150,11 +149,9 @@ const DynamicForm = ({ formConfig }) => {
               </Grid>
             ))}
             <Grid item xs={12}>
-              {formConfig["form-btns"].map((btn, index) => (
-                <Button key={index} type={btn.type} variant="contained" color="primary" style={{ marginRight: "10px" }}>
-                  {btn.label}
-                </Button>
-              ))}
+              <Button type={"submit"} variant="contained" color="primary" style={{ marginRight: "10px" }}>
+                Submit
+              </Button>
             </Grid>
           </Grid>
         </form>

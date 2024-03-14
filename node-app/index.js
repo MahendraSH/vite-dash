@@ -11,12 +11,14 @@ import path from "path";
 import cookieParser from "cookie-parser";
 import errorController from "./middlewares/error-controller.js";
 import ErrorHandler from "./utils/error-handler.js";
+import { dbConnect } from "./DB/dbConnect.js";
 
 const app = Express();
 app.use(Express.json());
 app.use(Express.urlencoded({ extended: true }));
 app.use(cookieParser());
 // dotenv path
+dotenv.config();
 
 // Serve static files from the 'dist' directory
 const __dirname = path.dirname(new URL(import.meta.url).pathname);
@@ -34,7 +36,9 @@ app.get("*", (req, res, next) => {
 // middlewares
 app.use(errorController);
 
-// console.log(path.dirname)
+// db connection
+
+dbConnect();
 
 const port = process.env.PORT || 8000;
 app.listen(port, () => {
