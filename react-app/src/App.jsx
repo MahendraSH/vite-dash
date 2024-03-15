@@ -10,7 +10,7 @@ import TableById from "@/pages/TableById";
 import FormById from "@/pages/FormById";
 import GetAllForms from "./pages/GetAllForms";
 import CreateFrom from "./pages/CreateFrom";
-
+import GetAllUsers from "./pages/GetAllUsers";
 const App = () => {
   return (
     <>
@@ -22,7 +22,7 @@ const App = () => {
           <Route path="/form/:id" element={<FormById />} />
           <Route path="table/:id" element={<TableById />} />
           <Route path="/create-form" element={<CreateFrom />} />
-
+          <Route path="/user/all" element={<GetAllUsers />} />
           <Route path="sample-page" element={<SamplePage />} />
           <Route path="*" element={<DemoPage />} />
         </Route>
