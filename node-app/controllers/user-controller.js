@@ -140,7 +140,14 @@ export const deleteUserById = AsyncErrorHandler(async (req, res, next) => {
 });
 
 export const logoutUser = AsyncErrorHandler(async (req, res, next) => {
-  res.clearCookie("loginToken");
+  const options = {
+    expires: new Date(Date.now()),
+    httpOnly: true,
+    secure: true,
+    sameSite: "none",
+  };
+
+  res.clearCookie("loginToken", options);
   res.status(200).json({
     success: true,
     message: "Logout successful",
