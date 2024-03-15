@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+const api = import.meta.env.VITE_APP_API_URL;
 
-const api = "/api/data";
 export const dataApiSlice = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: api,
@@ -60,4 +60,11 @@ export const dataApiSlice = createApi({
   }),
 });
 
-export const { useGetTableDataQuery, useGetFormsQuery, useGetFormDataQuery, useCreateFormMutation, useUpdateFormByIdMutation, useDeleteFormByIdMutation } = dataApiSlice;
+export const {
+  useGetTableDataQuery,
+  useGetFormsQuery,
+  useGetFormDataQuery,
+  useCreateFormMutation,
+  useUpdateFormByIdMutation,
+  useDeleteFormByIdMutation,
+} = dataApiSlice;

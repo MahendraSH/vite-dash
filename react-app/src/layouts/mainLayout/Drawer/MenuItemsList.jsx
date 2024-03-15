@@ -4,7 +4,7 @@ import { Link, useLocation } from "react-router-dom";
 import * as icons from "@ant-design/icons";
 import { Menu, MenuItem, SubMenu } from "react-pro-sidebar";
 import { useTheme } from "@emotion/react";
-import { useGetMenuItemsQuery } from "@/app/features/uiApiSlice";
+import { useGetMenuItemsQuery } from "@/app/features/userApiSlice";
 import { createElement } from "react";
 
 const MenuItemsList = () => {
