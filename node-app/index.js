@@ -12,7 +12,7 @@ import cookieParser from "cookie-parser";
 import errorController from "./middlewares/error-controller.js";
 import ErrorHandler from "./utils/error-handler.js";
 import { dbConnect } from "./DB/dbConnect.js";
-
+import cors from "cors";
 const app = Express();
 app.use(Express.json());
 app.use(Express.urlencoded({ extended: true }));
@@ -23,6 +23,13 @@ dotenv.config();
 // Serve static files from the 'dist' directory
 const __dirname = path.dirname(new URL(import.meta.url).pathname);
 app.use(Express.static(path.join(__dirname, "public")));
+
+app.use(
+  cors({
+    credentials: true,
+    origin: "*",
+  })
+);
 
 //  Routes
 app.use("/api/user", userRoutes);

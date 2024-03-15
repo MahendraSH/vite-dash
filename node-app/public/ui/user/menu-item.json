@@ -74,22 +74,22 @@
     ]
   },
   {
-    "id": "authentication",
-    "title": "Authentication",
+    "id": "user",
+    "title": "Users",
     "type": "submenu",
-    "icon": "LoginOutlined",
+    "icon": "UserOutlined",
     "children": [
       {
-        "id": "login",
-        "title": "Login",
+        "id": "users",
+        "title": "All Users",
         "type": "item",
-        "url": "/login"
+        "url": "/user/all"
       },
       {
-        "id": "register",
-        "title": "Register",
+        "id": "prevtageSettings",
+        "title": "Privileges Settings",
         "type": "item",
-        "url": "/register"
+        "url": "/user/privileges-settings"
       }
     ]
   },
