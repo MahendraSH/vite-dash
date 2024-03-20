@@ -1,9 +1,15 @@
 import React from "react";
 import DynamicTable from "@/components/table-components/DynamicTable";
 import { useGetAllUsersQuery } from "@/app/features/userApiSlice";
+import { Skeleton } from "@mui/material";
+import HeadingNav from "@/components/heading-nav";
 
 const GetAllUsers = () => {
-  const { data, isLoading, isError, error } = useGetAllUsersQuery();
+  const { data, isError, isLoading, error } = useGetAllUsersQuery();
+
+  const onDeleteConform = async (id) => {
+    console.log(id);
+  };
   const tableColumns = [
     {
       header: "index",
@@ -12,22 +18,23 @@ const GetAllUsers = () => {
     },
 
     {
-      header: "heading",
-      field: "heading",
+      header: "FirstName",
+      field: "firstName",
       type: "text",
     },
     {
-      header: "Description",
-      field: "description",
+      header: "LastName",
+      field: "lastName",
       type: "text",
     },
+    { header: "Email", field: "email", type: "text" },
     {
       header: "Created At",
       field: "createdAt",
       type: "date",
     },
     {
-      header: "View Form ",
+      header: "View User Detials ",
       field: "link",
       type: "link",
     },
@@ -39,25 +46,40 @@ const GetAllUsers = () => {
         <pre>{JSON.stringify(error)}</pre>
       </div>
     );
-  console.log(data);
 
   return (
     <div>
+      <HeadingNav
+        navLinks={[
+          {
+            link: "/",
+            label: "Dashboard",
+          },
+          {
+            link: "/users",
+            label: "Users",
+          },
+        ]}
+      />
       {isLoading ? (
-        <div> loading ... </div>
+        <div>
+          {" "}
+          <Skeleton variant="rectangular" width={"100%"} height={500} />{" "}
+        </div>
       ) : (
-        <TableWarper tableHeading={"All the Forms"} tableDiscription={"All the Forms "}>
-          <DynamicTable
-            tableColumns={tableColumns}
-            tableData={data?.users.map((item, index) => ({
-              index: index + 1,
-              ...item,
-              link: "/user/" + item._id,
-            }))}
-            Search={{ searchFields: ["heading"] }}
-            isFormTable={true}
-          />
-        </TableWarper>
+        <DynamicTable
+          tableColumns={tableColumns}
+          tableData={data?.users.map((item, index) => ({
+            index: index + 1,
+            ...item,
+            link: "/user/" + item._id,
+          }))}
+          Search={{ searchFields: ["firstName", "lastName"] }}
+          isFormTable={true}
+          label="User"
+          deleteLabelName="User"
+          onDeleteConform={onDeleteConform}
+        />
       )}
     </div>
   );

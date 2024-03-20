@@ -22,7 +22,9 @@ const App = () => {
           <Route path="/form/:id" element={<FormById />} />
           <Route path="table/:id" element={<TableById />} />
           <Route path="/create-form" element={<CreateFrom />} />
-          <Route path="/user/all" element={<GetAllUsers />} />
+          <Route path="/users" element={<GetAllUsers />} />
+          <Route path="/roles" element={<SamplePage />} />
+          <Route path="/previalges" element={<SamplePage />} />
           <Route path="sample-page" element={<SamplePage />} />
           <Route path="*" element={<DemoPage />} />
         </Route>

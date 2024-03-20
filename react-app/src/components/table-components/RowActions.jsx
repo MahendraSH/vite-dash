@@ -6,7 +6,6 @@ import MenuItem from "@mui/material/MenuItem";
 import { alpha, styled } from "@mui/material/styles";
 import PropTypes from "prop-types";
 import * as React from "react";
-import { useNavigate } from "react-router-dom";
 import AlertDialog from "./AlertDelete";
 const StyledMenu = styled((props) => (
   <Menu
@@ -45,8 +44,7 @@ const StyledMenu = styled((props) => (
   },
 }));
 
-export default function RowActions({ editLink, isFormTable = false, id }) {
-  const navigate = useNavigate();
+export default function RowActions({ onHandleEdit, deleteLabelName, onDeleteConform, label, id }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -57,9 +55,7 @@ export default function RowActions({ editLink, isFormTable = false, id }) {
   };
 
   const handOnClickEdit = () => {
-    if (editLink) {
-      navigate(editLink);
-    }
+    onHandleEdit(id);
     handleClose();
   };
 
@@ -90,7 +86,13 @@ export default function RowActions({ editLink, isFormTable = false, id }) {
           Edit
         </MenuItem>
         <MenuItem disableRipple>
-          <AlertDialog isFormTable={isFormTable} handleClose={handleClose} id={id} />
+          <AlertDialog
+            handleClose={handleClose}
+            onDelteConfrom={onDeleteConform}
+            label={label}
+            id={id}
+            deleteLableName={deleteLabelName}
+          />
         </MenuItem>
       </StyledMenu>
     </div>
@@ -98,7 +100,9 @@ export default function RowActions({ editLink, isFormTable = false, id }) {
 }
 
 RowActions.protoTypes = {
-  editLink: PropTypes.string,
-  isFormTable: PropTypes.bool,
+  onHandleEdit: PropTypes.func.isRequired,
+  onDeleteConform: PropTypes.func.isRequired,
+  label: PropTypes.string.isRequired,
+  deleteLabelName: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
 };

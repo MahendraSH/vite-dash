@@ -1,9 +1,9 @@
-import { LinkOutlined } from "@mui/icons-material";
+import { AddCircle, DeleteOutlined, LinkOutlined } from "@mui/icons-material";
 import FirstPageIcon from "@mui/icons-material/FirstPage";
 import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 import LastPageIcon from "@mui/icons-material/LastPage";
-import { TableHead } from "@mui/material";
+import { Button, TableHead } from "@mui/material";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import Paper from "@mui/material/Paper";
@@ -17,7 +17,7 @@ import TableRow from "@mui/material/TableRow";
 import { useTheme } from "@mui/material/styles";
 import PropTypes from "prop-types";
 import * as React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import RowActions from "./RowActions";
 import SearchAccToIndex from "./SearchAccToIndex";
 import SearchIndexSelectForm from "./SearchIndexSelect";
@@ -74,12 +74,24 @@ TablePaginationActions.propTypes = {
   rowsPerPage: PropTypes.number.isRequired,
 };
 
-export default function DynamicTable({ tableColumns, tableData, Search, isFormTable = false }) {
+export default function DynamicTable({
+  tableColumns,
+  tableData,
+  Search,
+  label,
+  deleteLabelName,
+  onDeleteConform,
+  editLink,
+  addLink,
+}) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [search, setSearch] = React.useState("");
   const [data, setData] = React.useState(tableData);
   const [selectIndex, setSelectIndex] = React.useState(Search.searchFields[0]);
+
+  const navigate = useNavigate();
+
   const emptyRows = rowsPerPage - Math.min(rowsPerPage, tableData.length - page * rowsPerPage);
   React.useMemo(() => {
     const regexPattern = new RegExp(search, "i"); // "i" flag for case-insensitive matching
@@ -97,20 +109,37 @@ export default function DynamicTable({ tableColumns, tableData, Search, isFormTa
 
   return (
     <TableContainer component={Paper}>
-      <Box
-        display={"flex"}
-        flexDirection={{ xs: "column", md: "row" }}
-        gap={4}
-        justifyContent={"space-between"}
-        px={4}
-        py={2}
-      >
-        <SearchAccToIndex search={search} setSearch={setSearch} />
-        <SearchIndexSelectForm
-          searchFields={Search.searchFields}
-          selectIndex={selectIndex}
-          setSelectIndex={setSelectIndex}
-        />
+      <Box display={"flex"} flexDirection={{ xs: "column", md: "row" }} gap={4} justifyContent={"space-between"}>
+        <Box
+          display={"flex"}
+          flexDirection={{ xs: "column", md: "row" }}
+          gap={4}
+          justifyContent={"flex-start"}
+          px={4}
+          py={2}
+        >
+          <SearchAccToIndex search={search} setSearch={setSearch} />
+          <SearchIndexSelectForm
+            searchFields={Search.searchFields}
+            selectIndex={selectIndex}
+            setSelectIndex={setSelectIndex}
+          />
+        </Box>
+        <Box
+          display={"flex"}
+          flexDirection={{ xs: "column", md: "row" }}
+          gap={4}
+          justifyContent={"flex-start"}
+          px={4}
+          py={2}
+        >
+          <Button variant="contained" startIcon={<AddCircle />} onClick={() => navigate(addLink)}>
+            Add {label}{" "}
+          </Button>
+          <Button color="error" variant="outlined" startIcon={<DeleteOutlined />}>
+            Delete {label}
+          </Button>
+        </Box>
       </Box>
       <Table>
         <TableHead>
@@ -162,8 +191,9 @@ export default function DynamicTable({ tableColumns, tableData, Search, isFormTa
                 ))}
                 <TableCell align="right" sx={{ px: { xs: 2, md: 3, lg: 4 }, py: 2 }}>
                   <RowActions
-                    editLink={isFormTable ? "/form/edit/" + row["_id"] : "/table/edit/" + index}
-                    isFormTable={isFormTable}
+                    onDeleteConform={onDeleteConform}
+                    label={label}
+                    deleteLabelName={deleteLabelName}
                     id={row["_id"]}
                   />
                 </TableCell>
@@ -212,5 +242,7 @@ DynamicTable.propTypes = {
   ).isRequired,
   tableData: PropTypes.arrayOf(PropTypes.object).isRequired,
   Search: PropTypes.object.isRequired,
-  isFormTable: PropTypes.bool,
+  label: PropTypes.string.isRequired,
+  onDeleteConform: PropTypes.func.isRequired,
+  deleteLabelName: PropTypes.string.isRequired,
 };

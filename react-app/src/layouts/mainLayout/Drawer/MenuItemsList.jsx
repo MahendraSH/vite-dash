@@ -22,7 +22,7 @@ const MenuItemsList = () => {
       if (item.type === "item") {
         return location.pathname.includes(item.url);
       } else {
-        return item.children.some((it) => location.pathname.includes(it.url));
+        return item.children.some((it) => location.pathname.includes(it?.url));
       }
     };
     return (
