@@ -7,6 +7,9 @@ import HeadingNav from "@/components/heading-nav";
 const GetAllUsers = () => {
   const { data, isError, isLoading, error } = useGetAllUsersQuery();
 
+  const onHandleEdit = async (id) => {
+    console.log(id);
+  };
   const onDeleteConform = async (id) => {
     console.log(id);
   };
@@ -32,11 +35,6 @@ const GetAllUsers = () => {
       header: "Created At",
       field: "createdAt",
       type: "date",
-    },
-    {
-      header: "View User Detials ",
-      field: "link",
-      type: "link",
     },
   ];
   if (isError)
@@ -72,13 +70,13 @@ const GetAllUsers = () => {
           tableData={data?.users.map((item, index) => ({
             index: index + 1,
             ...item,
-            link: "/user/" + item._id,
           }))}
           Search={{ searchFields: ["firstName", "lastName"] }}
           isFormTable={true}
           label="User"
           deleteLabelName="User"
           onDeleteConform={onDeleteConform}
+          onHandleEdit={onHandleEdit}
         />
       )}
     </div>

@@ -21,6 +21,8 @@ import { Link, useNavigate } from "react-router-dom";
 import RowActions from "./RowActions";
 import SearchAccToIndex from "./SearchAccToIndex";
 import SearchIndexSelectForm from "./SearchIndexSelect";
+
+import AddEditEntry from "./Add-Edit-Entry";
 function TablePaginationActions(props) {
   const theme = useTheme();
   const { count, page, rowsPerPage, onPageChange } = props;
@@ -81,7 +83,7 @@ export default function DynamicTable({
   label,
   deleteLabelName,
   onDeleteConform,
-  editLink,
+  onHandleEdit,
   addLink,
 }) {
   const [page, setPage] = React.useState(0);
@@ -89,7 +91,9 @@ export default function DynamicTable({
   const [search, setSearch] = React.useState("");
   const [data, setData] = React.useState(tableData);
   const [selectIndex, setSelectIndex] = React.useState(Search.searchFields[0]);
-
+  const [openAdd, setOpenAdd] = React.useState(false);
+  const handleOpenAdd = () => setOpenAdd(true);
+  const handleCloseAdd = () => setOpenAdd(false);
   const navigate = useNavigate();
 
   const emptyRows = rowsPerPage - Math.min(rowsPerPage, tableData.length - page * rowsPerPage);
@@ -109,6 +113,7 @@ export default function DynamicTable({
 
   return (
     <TableContainer component={Paper}>
+      <AddEditEntry onOpen={handleOpenAdd} onClose={handleCloseAdd} open={openAdd} label={label} />
       <Box display={"flex"} flexDirection={{ xs: "column", md: "row" }} gap={4} justifyContent={"space-between"}>
         <Box
           display={"flex"}
@@ -133,7 +138,14 @@ export default function DynamicTable({
           px={4}
           py={2}
         >
-          <Button variant="contained" startIcon={<AddCircle />} onClick={() => navigate(addLink)}>
+          <Button
+            variant="contained"
+            startIcon={<AddCircle />}
+            onClick={() => {
+              navigate(addLink);
+              handleOpenAdd();
+            }}
+          >
             Add {label}{" "}
           </Button>
           <Button color="error" variant="outlined" startIcon={<DeleteOutlined />}>
@@ -157,7 +169,7 @@ export default function DynamicTable({
             {data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, index) => (
               <TableRow key={index} sx={{}}>
                 {tableColumns.map((column, columnIndex) => (
-                  <TableCell key={columnIndex} align="right" sx={{ px: { xs: 2, md: 3, lg: 4 }, py: 2 }}>
+                  <TableCell key={columnIndex} align="center" sx={{ px: { xs: 2, md: 3, lg: 4 }, py: 2 }}>
                     {column.type === "date" ? new Date(row[column.field]).toDateString() : ""}
                     {column.type === "number" || column.type == "input-number"
                       ? new Intl.NumberFormat("en-IN").format(row[column.field])
@@ -189,12 +201,13 @@ export default function DynamicTable({
                     )}
                   </TableCell>
                 ))}
-                <TableCell align="right" sx={{ px: { xs: 2, md: 3, lg: 4 }, py: 2 }}>
+                <TableCell align="center" sx={{ px: { xs: 2, md: 3, lg: 4 }, py: 2 }}>
                   <RowActions
                     onDeleteConform={onDeleteConform}
                     label={label}
                     deleteLabelName={deleteLabelName}
                     id={row["_id"]}
+                    onHandleEdit={handleOpenAdd}
                   />
                 </TableCell>
               </TableRow>
@@ -245,4 +258,5 @@ DynamicTable.propTypes = {
   label: PropTypes.string.isRequired,
   onDeleteConform: PropTypes.func.isRequired,
   deleteLabelName: PropTypes.string.isRequired,
+  onHandleEdit: PropTypes.func.isRequired,
 };
