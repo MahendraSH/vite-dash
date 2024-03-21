@@ -31,6 +31,20 @@ export const registerUser = AsyncErrorHandler(async (req, res, next) => {
   jwtCookie(res, 201, user);
 });
 
+export const createUser = AsyncErrorHandler(async (req, res, next) => {
+  const { firstName, lastName, email, companyName, password } = req.body;
+  const user = await User.create({
+    firstName,
+    lastName,
+    email,
+    companyName,
+    password,
+  });
+  res.status(201).json({
+    success: true,
+    user: user,
+  });
+});
 export const getAllUsers = AsyncErrorHandler(async (req, res, next) => {
   const users = await User.find();
   res.status(200).json({
