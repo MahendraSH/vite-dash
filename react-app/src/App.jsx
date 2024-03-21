@@ -8,9 +8,11 @@ import LoginPage from "@/pages/auth/LoginPage";
 import RegisterPage from "@/pages/auth/RegisterPage";
 import TableById from "@/pages/TableById";
 import FormById from "@/pages/FormById";
-import GetAllForms from "./pages/GetAllForms";
-import CreateFrom from "./pages/CreateFrom";
-import GetAllUsers from "./pages/GetAllUsers";
+import GetAllForms from "@/pages/GetAllForms";
+import CreateFrom from "@/pages/CreateFrom";
+import GetAllUsers from "@/pages/management/GetAllUsers";
+import RolesPage from "./pages/management/RolesPage";
+import PrevialgesPage from "./pages/management/PrevialgesPage";
 const App = () => {
   return (
     <>
@@ -23,8 +25,8 @@ const App = () => {
           <Route path="table/:id" element={<TableById />} />
           <Route path="/create-form" element={<CreateFrom />} />
           <Route path="/users" element={<GetAllUsers />} />
-          <Route path="/roles" element={<SamplePage />} />
-          <Route path="/previalges" element={<SamplePage />} />
+          <Route path="/role" element={<RolesPage />} />
+          <Route path="/previalges" element={<PrevialgesPage />} />
           <Route path="sample-page" element={<SamplePage />} />
           <Route path="*" element={<DemoPage />} />
         </Route>

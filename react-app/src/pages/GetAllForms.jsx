@@ -47,16 +47,7 @@ const GetAllForms = () => {
         <div> loading ... </div>
       ) : (
         <TableWarper tableHeading={"All the Forms"} tableDiscription={"All the Forms "}>
-          <DynamicTable
-            tableColumns={tableColumns}
-            tableData={data?.forms.map((item, index) => ({
-              index: index + 1,
-              ...item,
-              link: "/form/" + item._id,
-            }))}
-            Search={{ searchFields: ["heading"] }}
-            isFormTable={true}
-          />
+          {" table useage changed "}{" "}
         </TableWarper>
       )}
     </div>

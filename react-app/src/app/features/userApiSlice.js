@@ -76,6 +76,14 @@ export const userApiSlice = createApi({
       }),
       providesTags: ["menu"],
     }),
+    createUser: build.mutation({
+      query: (values) => ({
+        url: "/user/create",
+        method: "POST",
+        body: values,
+      }),
+      invalidatesTags: ["user"],
+    }),
   }),
 });
 
@@ -88,4 +96,5 @@ export const {
   useUpdatePasswordMutation,
   useGetAllUsersQuery,
   useGetMenuItemsQuery,
+  useCreateUserMutation,
 } = userApiSlice;

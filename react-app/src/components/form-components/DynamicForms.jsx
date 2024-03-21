@@ -20,26 +20,42 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { Formik } from "formik";
 import PropTypes from "prop-types";
+import toast from "react-hot-toast";
 
-const DynamicForm = ({ formConfig }) => {
+const DynamicForm = ({ formConfig, label, initialValues = {}, onSubmitCreate, onSubmitEdit, id = "", onClose }) => {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(() => theme.breakpoints.down("sm"));
 
-  const initialValues = {};
   const formItems = formConfig["items"];
-
-  formItems.forEach((item) => {
-    initialValues[item.name] = "";
-    if (!item.type) {
-      item.type = "input-text"; // Default type to "input-text" if not specified
-    }
-  });
+  const isEdit = id !== "" ? true : false;
+  const successMessage = isEdit ? `Update ${label} SuccessFul ` : `Add ${label} SuccessFul`;
+  const errorMessage = isEdit ? `Failed to  Update ${label} ` : `Failed to Add ${label}`;
+  const buttonText = isEdit ? `Update ${label}` : `Add ${label}`;
 
   return (
     <Formik
-      initialValues={initialValues}
-      onSubmit={(values) => {
-        console.log("Form submitted:", values);
+      initialValues={isEdit ? initialValues : {}}
+      onSubmit={async (values) => {
+        const isAllFiled = formItems.some((item) => {
+          if (!values[item.name]) {
+            return true;
+          }
+        });
+        if (isAllFiled) {
+          toast.error(" Please fill All the fields");
+        }
+        if (!isAllFiled) {
+          console.log("Form submitted:", values);
+          try {
+            isEdit ? await onSubmitEdit(id, values).unwrap() : await onSubmitCreate(values).unwrap();
+            toast.success(successMessage);
+          } catch (error) {
+            toast.error(errorMessage);
+            console.log(error);
+          } finally {
+            onClose();
+          }
+        }
       }}
     >
       {({ values, handleChange, handleSubmit }) => (
@@ -53,7 +69,7 @@ const DynamicForm = ({ formConfig }) => {
                     variant="outlined"
                     label={item.label}
                     name={item.name}
-                    value={values[item.name]}
+                    value={values[item.name] || ""}
                     onChange={handleChange}
                   />
                 )}
@@ -150,7 +166,7 @@ const DynamicForm = ({ formConfig }) => {
             ))}
             <Grid item xs={12}>
               <Button type={"submit"} variant="contained" color="primary" style={{ marginRight: "10px" }}>
-                Submit
+                {buttonText}
               </Button>
             </Grid>
           </Grid>
@@ -161,7 +177,13 @@ const DynamicForm = ({ formConfig }) => {
 };
 
 DynamicForm.propTypes = {
+  initialValues: PropTypes.object,
+  onSubmitCreate: PropTypes.func.isRequired,
+  onSubmitEdit: PropTypes.func.isRequired,
+  label: PropTypes.string.isRequired,
   formConfig: PropTypes.object.isRequired,
+  id: PropTypes.string,
+  onClose: PropTypes.func.isRequired,
 };
 
 export default DynamicForm;

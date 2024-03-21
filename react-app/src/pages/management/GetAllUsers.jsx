@@ -1,18 +1,17 @@
 import React from "react";
 import DynamicTable from "@/components/table-components/DynamicTable";
-import { useGetAllUsersQuery } from "@/app/features/userApiSlice";
+import { useCreateUserMutation, useGetAllUsersQuery } from "@/app/features/userApiSlice";
 import { Skeleton } from "@mui/material";
 import HeadingNav from "@/components/heading-nav";
 
 const GetAllUsers = () => {
   const { data, isError, isLoading, error } = useGetAllUsersQuery();
+  const [createUserMutation] = useCreateUserMutation();
+  // add onedit and ondelte
+  const onSubmitEdit = createUserMutation;
+  const onDeleteConform = createUserMutation;
+  const onSubmitCreate = createUserMutation;
 
-  const onHandleEdit = async (id) => {
-    console.log(id);
-  };
-  const onDeleteConform = async (id) => {
-    console.log(id);
-  };
   const tableColumns = [
     {
       header: "index",
@@ -35,6 +34,33 @@ const GetAllUsers = () => {
       header: "Created At",
       field: "createdAt",
       type: "date",
+    },
+    {
+      header: "Company Name",
+      field: "companyName",
+      type: "text",
+    },
+  ];
+  const formItem = [
+    {
+      label: "First Name",
+      type: "input-text",
+      name: "firstName",
+    },
+    {
+      label: "LastName",
+      type: "input-text",
+      name: "lastName",
+    },
+    {
+      label: "Password",
+      type: "input-text",
+      name: "password",
+    },
+    {
+      label: "Company Name",
+      type: "input-text",
+      name: "companyName",
     },
   ];
   if (isError)
@@ -67,16 +93,20 @@ const GetAllUsers = () => {
       ) : (
         <DynamicTable
           tableColumns={tableColumns}
-          tableData={data?.users.map((item, index) => ({
-            index: index + 1,
-            ...item,
-          }))}
+          tableData={
+            data?.users.map((item, index) => ({
+              index: index + 1,
+              ...item,
+            })) || []
+          }
           Search={{ searchFields: ["firstName", "lastName"] }}
           isFormTable={true}
           label="User"
           deleteLabelName="User"
           onDeleteConform={onDeleteConform}
-          onHandleEdit={onHandleEdit}
+          onSubmitEdit={onSubmitEdit}
+          itemForm={formItem}
+          onSubmitCreate={onSubmitCreate}
         />
       )}
     </div>

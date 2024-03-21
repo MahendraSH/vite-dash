@@ -17,7 +17,7 @@ import TableRow from "@mui/material/TableRow";
 import { useTheme } from "@mui/material/styles";
 import PropTypes from "prop-types";
 import * as React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import RowActions from "./RowActions";
 import SearchAccToIndex from "./SearchAccToIndex";
 import SearchIndexSelectForm from "./SearchIndexSelect";
@@ -83,8 +83,9 @@ export default function DynamicTable({
   label,
   deleteLabelName,
   onDeleteConform,
-  onHandleEdit,
-  addLink,
+  onSubmitEdit,
+  itemForm,
+  onSubmitCreate,
 }) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
@@ -94,7 +95,6 @@ export default function DynamicTable({
   const [openAdd, setOpenAdd] = React.useState(false);
   const handleOpenAdd = () => setOpenAdd(true);
   const handleCloseAdd = () => setOpenAdd(false);
-  const navigate = useNavigate();
 
   const emptyRows = rowsPerPage - Math.min(rowsPerPage, tableData.length - page * rowsPerPage);
   React.useMemo(() => {
@@ -113,7 +113,15 @@ export default function DynamicTable({
 
   return (
     <TableContainer component={Paper}>
-      <AddEditEntry onOpen={handleOpenAdd} onClose={handleCloseAdd} open={openAdd} label={label} />
+      <AddEditEntry
+        onOpen={handleOpenAdd}
+        onClose={handleCloseAdd}
+        open={openAdd}
+        label={label}
+        itemform={itemForm}
+        onSubmitCreate={onSubmitCreate}
+        onSubmitEdit={onSubmitEdit}
+      />
       <Box display={"flex"} flexDirection={{ xs: "column", md: "row" }} gap={4} justifyContent={"space-between"}>
         <Box
           display={"flex"}
@@ -142,7 +150,6 @@ export default function DynamicTable({
             variant="contained"
             startIcon={<AddCircle />}
             onClick={() => {
-              navigate(addLink);
               handleOpenAdd();
             }}
           >
@@ -258,5 +265,7 @@ DynamicTable.propTypes = {
   label: PropTypes.string.isRequired,
   onDeleteConform: PropTypes.func.isRequired,
   deleteLabelName: PropTypes.string.isRequired,
-  onHandleEdit: PropTypes.func.isRequired,
+  onSubmitEdit: PropTypes.func.isRequired,
+  onSubmitCreate: PropTypes.func.isRequired,
+  itemForm: PropTypes.arrayOf(PropTypes.object).isRequired,
 };

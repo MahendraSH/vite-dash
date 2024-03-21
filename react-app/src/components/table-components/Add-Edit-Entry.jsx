@@ -1,26 +1,33 @@
 import React from "react";
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
-import { Container } from "@mui/material";
 import DynamicForm from "../form-components/DynamicForms";
-import { bool, func, string } from "prop-types";
+import { arrayOf, bool, func, object, string } from "prop-types";
 
 const style = {
   position: "absolute",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
+  width: { xs: "90%", sm: "85%", md: "70%", lg: "60%" },
 
   bgcolor: "background.paper",
   border: "2px solid  primary ",
   borderRadius: "1rem",
   boxShadow: 24,
-  p: { sm: 4, md: 6, lg: 8 },
+  p: { xs: 2, Cm: 4, md: 6, lg: 8 },
+  maxHeight: "90vh",
+  overflowY: "auto",
+  whiteSpace: "stable",
+  flexDirection: "column",
+  display: "flex",
+  justifyContent: "center",
+  alignContent: "center",
+  gap: 4,
 };
 
-const AddEditEntry = ({ label, onClose, onOpen, open }) => {
+const AddEditEntry = ({ label, onClose, onOpen, open, itemform, id, onSubmitEdit, onSubmitCreate }) => {
   return (
     <div>
       <Modal
@@ -35,38 +42,13 @@ const AddEditEntry = ({ label, onClose, onOpen, open }) => {
           </Typography>
 
           <DynamicForm
-            formConfig={JSON.parse(`{
-  "items": [
-    {
-      "label": "First Name",
-      "type": "input-text",
-      "name": "firstName"
-    },
-    {
-      "label": "Last Name",
-      "type": "input-text",
-      "name": "lastName"
-    },
-    {
-      "label": "Password",
-      "type": "input-text",
-      "name": "password"
-    },
-    {
-      "label": "Email",
-      "type": "input-text",
-      "name": "email"
-    },
-    {
-      "label": "Company Name",
-      "type": "input-text",
-      "name": "companyName"
-    }
-  ]
-}
-`)}
+            formConfig={{ items: itemform }}
+            label={label}
+            id={id}
+            onSubmitEdit={onSubmitEdit}
+            onSubmitCreate={onSubmitCreate}
+            onClose={onClose}
           />
-
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
             add all the fields are required
           </Typography>
@@ -76,10 +58,15 @@ const AddEditEntry = ({ label, onClose, onOpen, open }) => {
   );
 };
 AddEditEntry.propTypes = {
+  itemform: arrayOf(object).isRequired,
+
   label: string.isRequired,
   onClose: func.isRequired,
   onOpen: func.isRequired,
   open: bool.isRequired,
+  id: string,
+  onSubmitCreate: func.isRequired,
+  onSubmitEdit: func.isRequired,
 };
 
 export default AddEditEntry;
