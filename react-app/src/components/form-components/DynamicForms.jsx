@@ -50,7 +50,7 @@ const DynamicForm = ({ formConfig, label, initialValues = {}, onSubmitCreate, on
             isEdit ? await onSubmitEdit(id, values).unwrap() : await onSubmitCreate(values).unwrap();
             toast.success(successMessage);
           } catch (error) {
-            toast.error(errorMessage);
+            toast.error(error?.data?.message || errorMessage);
             console.log(error);
           } finally {
             onClose();

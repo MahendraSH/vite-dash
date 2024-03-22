@@ -29,7 +29,7 @@ const GetAllUsers = () => {
       field: "lastName",
       type: "text",
     },
-    { header: "Email", field: "email", type: "text" },
+    { header: "Email Id", field: "email", type: "text" },
     {
       header: "Created At",
       field: "createdAt",
@@ -51,6 +51,11 @@ const GetAllUsers = () => {
       label: "LastName",
       type: "input-text",
       name: "lastName",
+    },
+    {
+      label: "Email Id",
+      type: "input-text",
+      name: "email",
     },
     {
       label: "Password",
