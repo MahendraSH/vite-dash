@@ -33,7 +33,7 @@ const previlagesSliceApi = createApi({
     }),
     // update role by id
     updatePrevilagesById: builder.mutation({
-      query: (id, { label, description }) => ({
+      query: ({ id, label, description }) => ({
         url: `/privilege/${id}`,
         method: "PATCH",
         body: { label, description },

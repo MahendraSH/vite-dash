@@ -23,6 +23,7 @@ import PropTypes from "prop-types";
 import toast from "react-hot-toast";
 
 const DynamicForm = ({ formConfig, label, initialValues = {}, onSubmitCreate, onSubmitEdit, id = "", onClose }) => {
+  console.log(initialValues);
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(() => theme.breakpoints.down("sm"));
 
@@ -36,6 +37,7 @@ const DynamicForm = ({ formConfig, label, initialValues = {}, onSubmitCreate, on
     <Formik
       initialValues={isEdit ? initialValues : {}}
       onSubmit={async (values) => {
+        console.log(values);
         const isAllFiled = formItems.some((item) => {
           if (!values[item.name]) {
             return true;
@@ -47,7 +49,7 @@ const DynamicForm = ({ formConfig, label, initialValues = {}, onSubmitCreate, on
         if (!isAllFiled) {
           console.log("Form submitted:", values);
           try {
-            isEdit ? await onSubmitEdit(id, values).unwrap() : await onSubmitCreate(values).unwrap();
+            isEdit ? await onSubmitEdit({ id, ...values }).unwrap() : await onSubmitCreate(values).unwrap();
             toast.success(successMessage);
           } catch (error) {
             toast.error(error?.data?.message || errorMessage);

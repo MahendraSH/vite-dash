@@ -36,7 +36,7 @@ export const deleteRole = AsyncErrorHandler(async (req, res, next) => {
   if (!roleToDelete) {
     return next(new ErrorHandler(" The  role is not find check the id ", 404));
   }
-  roleToDelete.deleteOne();
+  await roleToDelete.deleteOne();
   res.status(200).json({
     success: true,
     message: "delete success full ",

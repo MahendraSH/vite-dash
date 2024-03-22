@@ -19,7 +19,14 @@ export default function AlertDialog({ handleClose, onDelteConfrom, deleteLableNa
   // on conform delete
 
   const handleConformDelete = async () => {
-    await onDelteConfrom(id);
+    try {
+      await onDelteConfrom(id);
+      toast.success(`Deleted ${deleteLableName} Successful`);
+    } catch (error) {
+      console.log(error);
+      toast.error(`Deleted ${deleteLableName} failed `);
+    }
+
     setOpen(false);
     handleClose();
   };

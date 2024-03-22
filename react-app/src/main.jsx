@@ -25,7 +25,6 @@ ReactDOM.createRoot(document.getElementById("root")).render(
               gutter={5}
               toastOptions={{
                 style: {
-                  color: "black",
                   fontSize: "1rem",
                   fontVariant: "ruby",
                   fontWeight: "bold",

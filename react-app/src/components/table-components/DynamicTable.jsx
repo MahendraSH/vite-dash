@@ -23,6 +23,7 @@ import SearchAccToIndex from "./SearchAccToIndex";
 import SearchIndexSelectForm from "./SearchIndexSelect";
 
 import AddEditEntry from "./Add-Edit-Entry";
+import { useState } from "react";
 function TablePaginationActions(props) {
   const theme = useTheme();
   const { count, page, rowsPerPage, onPageChange } = props;
@@ -95,7 +96,11 @@ export default function DynamicTable({
   const [openAdd, setOpenAdd] = React.useState(false);
   const handleOpenAdd = () => setOpenAdd(true);
   const handleCloseAdd = () => setOpenAdd(false);
+  const [editId, setEditId] = useState("");
 
+  const onHandleEdit = (id) => {
+    setEditId(id), handleOpenAdd();
+  };
   const emptyRows = rowsPerPage - Math.min(rowsPerPage, tableData.length - page * rowsPerPage);
   React.useMemo(() => {
     const regexPattern = new RegExp(search, "i"); // "i" flag for case-insensitive matching
@@ -121,6 +126,8 @@ export default function DynamicTable({
         itemform={itemForm}
         onSubmitCreate={onSubmitCreate}
         onSubmitEdit={onSubmitEdit}
+        id={editId}
+        initialValues={tableData.find((item) => item._id === editId)}
       />
       <Box display={"flex"} flexDirection={{ xs: "column", md: "row" }} gap={4} justifyContent={"space-between"}>
         <Box
@@ -214,7 +221,7 @@ export default function DynamicTable({
                     label={label}
                     deleteLabelName={deleteLabelName}
                     id={row["_id"]}
-                    onHandleEdit={handleOpenAdd}
+                    onHandleEdit={onHandleEdit}
                   />
                 </TableCell>
               </TableRow>

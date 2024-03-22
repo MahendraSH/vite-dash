@@ -33,7 +33,7 @@ const roleSliceApi = createApi({
     }),
     // update role by id
     updateRoleById: builder.mutation({
-      query: (id, { label, description }) => ({
+      query: ({ id, label, description }) => ({
         url: `/role/${id}`,
         method: "PATCH",
         body: { label, description },

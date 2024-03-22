@@ -55,7 +55,7 @@ export default function RowActions({ onHandleEdit, deleteLabelName, onDeleteConf
   };
 
   const handOnClickEdit = () => {
-    onHandleEdit();
+    onHandleEdit(id);
 
     handleClose();
   };

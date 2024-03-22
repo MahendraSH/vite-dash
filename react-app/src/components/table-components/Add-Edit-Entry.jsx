@@ -27,7 +27,7 @@ const style = {
   gap: 4,
 };
 
-const AddEditEntry = ({ label, onClose, onOpen, open, itemform, id, onSubmitEdit, onSubmitCreate }) => {
+const AddEditEntry = ({ label, onClose, onOpen, open, itemform, id, onSubmitEdit, onSubmitCreate, initialValues }) => {
   return (
     <div>
       <Modal
@@ -48,6 +48,7 @@ const AddEditEntry = ({ label, onClose, onOpen, open, itemform, id, onSubmitEdit
             onSubmitEdit={onSubmitEdit}
             onSubmitCreate={onSubmitCreate}
             onClose={onClose}
+            initialValues={initialValues}
           />
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
             add all the fields are required
@@ -67,6 +68,7 @@ AddEditEntry.propTypes = {
   id: string,
   onSubmitCreate: func.isRequired,
   onSubmitEdit: func.isRequired,
+  initialValues: object,
 };
 
 export default AddEditEntry;
